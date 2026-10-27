@@ -1,11 +1,11 @@
 # Monogram OS
 
-A clickable prototype of an operating system for The Monogram Club — a
+A working studio tool (grown from a clickable prototype) for The Monogram Club — a
 strategy-led brand identity studio. Single self-contained `index.html`:
 markup, styles and script in one file, no build step, no dependencies
 beyond the Inter webfont. Open it in a browser to run it.
 
-Current version: **V0.12** (title tag carries the version — bump it with
+Current version: **V1.0** (title tag carries the version — bump it with
 each meaningful pass).
 
 ## What it is
@@ -60,11 +60,20 @@ one-off values.
 
 ## State
 
-Discovery answers persist to `localStorage` under `monogram-disc`; every
-read and write is wrapped in try/catch. Checkmarks, the "x of 5 completed"
-count, the progress bar and the Approve gate all derive from those answers —
-don't hardcode them. Task counts in the sidebar and stat tiles derive from
-the DOM via `syncTasks()`.
+Studio data lives in `localStorage` under `monogram-db` (clients, projects,
+tasks, events, activity, profile). `loadDB()` seeds the sample studio on first
+run; every change goes through `commit()` (persist + `renderAll()`). All views
+that show studio data render from `db` — never hardcode counts or rows in the
+markup. Writes are wrapped in try/catch and a failed save shows a toast.
+
+Discovery answers live under `monogram-disc`, keyed `<projectId>:<Section>.<n>`
+(pre-V1.0 un-namespaced keys are migrated to the KLG sample project). Checkmarks,
+the "x of 5 completed" count, the progress bar and the Approve gate derive from
+those answers.
+
+Settings → Your data downloads a JSON backup (db + discovery), restores one,
+reloads the sample studio or erases everything. The URL hash keeps the current
+view (`#tasks`, `#project/<id>`) across reloads.
 
 The Brand Hub preview is themed by `HUB_THEME` and `applyTheme()`: editing a
 colour or the display face in the Colours/Fonts sections retints the live
@@ -79,8 +88,8 @@ and actually look at the result rather than assuming.
 
 ## Known gaps
 
-- Everything is prototype data; actions fire a toast, nothing persists
-  except Discovery.
-- Brand Lab generation is a toast, not a model call.
-- Calendar is October 2026 only, hardcoded events.
-- Documents, Assets, Templates and Settings are the thinnest views.
+- Data is per browser and per file location: moving `index.html` or switching
+  browsers starts empty until a backup is restored. No multi-user sync.
+- Brand Hub, Brand Lab, Monogram AI, Generations, Documents, Assets and
+  Templates are still prototype views tied to the KLG sample; their actions
+  fire a toast and nothing is saved.

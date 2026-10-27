@@ -1,5 +1,20 @@
 # Changelog
 
+## V1.0 — ready for daily use
+- Clients, projects, tasks and calendar events are real records saved in the
+  browser (`monogram-db`), with create, edit and delete forms.
+- Overview stats, today list, active projects, activity and sidebar counts all
+  derive from the data; dates are relative to today.
+- Project detail: stage bar sets the stage, workspace notes (brief, strategy,
+  direction, files) save as you type, palette and personality are editable.
+- Discovery is per project with a project picker; approval is recorded.
+- Tasks board: Today (incl. overdue) / Coming up / Waiting, filter by project;
+  completed tasks stay visible for the rest of the day.
+- Calendar navigates months and shows events, project deadlines and task due
+  dates, plus a month agenda; click a day to add an event.
+- Search (⌘K) finds projects, clients, tasks, events and pages.
+- Settings: editable profile, download/restore backup, load sample, erase all.
+
 ## V0.12 — premium pass
 - Canvas to #fbfbfb; cards separated by hairline, shadow reserved for
   hover and overlays.

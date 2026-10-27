@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Monogram OS — V0.12</title>
+<title>Monogram OS — V1.0</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/inter@5/index.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.3.0/index.css">
 <style>
@@ -440,6 +440,74 @@ h2,h3{letter-spacing:-.02em}
 .proj-cover{height:136px}
 .cal-ev{border-radius:6px}
 #calendarGrid>.card{border-radius:12px!important}
+
+/* V1.0 — working data layer */
+.task .check{padding:0;cursor:pointer;color:transparent;transition:background .15s var(--ease)}
+.task .check:hover{border-color:var(--ink)}
+.task[data-done] .check{background:var(--ink);border-color:var(--ink);color:#fff}
+.task-body{all:unset;display:block;flex:1;min-width:0;cursor:pointer;border-radius:6px}
+.task-body b,.task-body small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.task-body:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.task time.overdue{color:var(--bad);font-weight:550}
+.proj-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.empty-card{grid-column:1/-1;padding:34px 20px;text-align:center;color:var(--soft);font-size:13px;border:1px dashed var(--edge);border-radius:var(--r-card)}
+.empty-card b{display:block;color:var(--ink);font-size:14px;font-weight:600;margin-bottom:4px}
+.empty-card .btn{margin-top:14px}
+.empty-line{padding:12px 0;color:var(--soft);font-size:12.5px}
+select.btn{-webkit-appearance:none;appearance:none;padding-right:30px;background:var(--paper) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M1 1l4 4 4-4' fill='none' stroke='%23101114' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg>") no-repeat right 11px center;max-width:220px;text-overflow:ellipsis}
+.btn.danger{color:var(--bad)}
+.btn.danger:hover{background:var(--bad-bg);border-color:var(--bad-bg)}
+.btn.danger[data-armed]{background:var(--bad);border-color:var(--bad);color:#fff}
+.modal{max-height:calc(100dvh - 44px);overflow:auto}
+.modal-actions .danger{margin-right:auto}
+.modal p:empty{display:none}
+.field.full{grid-column:1/-1}
+.field.invalid input,.field.invalid select{border-color:var(--bad)}
+.field textarea{min-height:84px;resize:vertical;line-height:1.5}
+.check-field{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--ink);padding-top:22px}
+.check-field input{width:16px;height:16px;accent-color:var(--ink)}
+.covers{display:flex;gap:6px;flex-wrap:wrap}
+.covers button{width:34px;height:34px;border-radius:var(--r-well);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--line);padding:0}
+.covers button[aria-pressed="true"]{box-shadow:0 0 0 2px var(--ink)}
+.results{margin-top:12px;display:grid;gap:2px;max-height:52vh;overflow:auto}
+.result{all:unset;box-sizing:border-box;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--r-well);cursor:pointer;font-size:13px;color:var(--ink)}
+.result small{color:var(--soft);font-size:11.5px;flex:none}
+.result:hover,.result.on,.result:focus-visible{background:var(--surface)}
+.workspace-text{display:block;width:100%;min-height:150px;border:1px solid var(--line);border-radius:var(--r-well);background:var(--surface);padding:13px;font-size:13px;line-height:1.6;color:var(--ink);resize:vertical;outline:none}
+.workspace-text:focus{border-color:var(--edge);background:var(--paper)}
+.client-projects{display:grid;gap:6px;margin-top:6px}
+.client-projects button{all:unset;cursor:pointer;display:flex;justify-content:space-between;gap:10px;padding:9px 11px;border:1px solid var(--line);border-radius:var(--r-well);font-size:12.5px}
+.client-projects button:hover,.client-projects button:focus-visible{background:var(--surface)}
+.table-wrap{overflow-x:auto}
+.table td small{display:block;color:var(--soft);font-size:11.5px;margin-top:2px}
+.settings-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.set-note{font-size:12.5px;color:var(--muted);line-height:1.55;margin:0 0 12px}
+.set-actions{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:4px}
+#setCounts{margin:14px 0 0;color:var(--soft)}
+.cal-nav{display:flex;gap:6px;align-items:center}
+.cal-nav .icon-btn{font-size:18px;line-height:1}
+#calendarGrid{grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;margin-top:12px}
+.cal-day{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:5px;min-width:0;min-height:88px;padding:8px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-well)}
+.cal-day:hover{border-color:var(--edge)}
+.cal-day:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.cal-day.blank{visibility:hidden}
+.cal-day.today{box-shadow:0 0 0 2px var(--ink)}
+.cal-day.past .cal-n{color:var(--soft)}
+.cal-day .evs{display:flex;flex-direction:column;gap:3px;min-width:0}
+.cal-day .cal-ev{all:unset;box-sizing:border-box;display:block;margin:0;font-size:11px;padding:3px 6px;border-radius:6px;background:var(--info-bg);color:var(--info);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer}
+.cal-day .cal-ev.due{background:var(--ink);color:#fff}
+.cal-day .cal-ev.task{background:var(--warn-bg);color:var(--warn)}
+.cal-more{font-size:11px;color:var(--soft)}
+.agenda-row{all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:grid;grid-template-columns:76px minmax(0,1fr) auto;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line2);font-size:13px}
+.agenda-row:last-child{border-bottom:0}
+.agenda-row time{font-size:12px;color:var(--soft);font-variant-numeric:tabular-nums}
+.agenda-row b{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.agenda-row:focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:6px}
+.side-promo button{margin-top:2px}
+@media(max-width:1200px){.settings-grid{grid-template-columns:1fr}}
+@media(max-width:800px){.proj-grid{grid-template-columns:1fr}.table th:nth-child(4),.table td:nth-child(4){display:none}select.btn{max-width:none}}
+@media(max-width:600px){#calendarGrid{gap:4px}.cal-day{min-height:54px;padding:6px}.cal-day .evs{flex-direction:row;flex-wrap:wrap}.cal-day .cal-ev{font-size:0;width:7px;height:7px;padding:0;border-radius:50%}.cal-more{display:none}.cal-nav .pill{display:none}.table th:nth-child(2),.table td:nth-child(2){display:none}}
+[hidden]{display:none!important}
 </style>
 </head>
 <body>
@@ -451,9 +519,9 @@ h2,h3{letter-spacing:-.02em}
  <div class="label">Studio</div>
  <nav class="nav">
   <button data-view="dashboard" class="active"><svg class="ico l" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-Category-light"/></svg><svg class="ico b" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-Category-bold"/></svg>Overview</button>
-  <button data-view="projects"><svg class="ico l" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-Folder-light"/></svg><svg class="ico b" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-Folder-bold"/></svg>Projects <span class="count">4</span></button>
+  <button data-view="projects"><svg class="ico l" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-Folder-light"/></svg><svg class="ico b" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-Folder-bold"/></svg>Projects <span class="count" id="navProjects"></span></button>
   <button data-view="clients"><svg class="ico l" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-TwoUsers-light"/></svg><svg class="ico b" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-TwoUsers-bold"/></svg>Clients</button>
-  <button data-view="tasks"><svg class="ico l" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-TickSquare-light"/></svg><svg class="ico b" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-TickSquare-bold"/></svg>Tasks <span class="count" id="navTasks">7</span></button>
+  <button data-view="tasks"><svg class="ico l" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-TickSquare-light"/></svg><svg class="ico b" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-TickSquare-bold"/></svg>Tasks <span class="count" id="navTasks"></span></button>
   <button data-view="calendar"><svg class="ico l" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-Calendar-light"/></svg><svg class="ico b" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-Calendar-bold"/></svg>Calendar</button>
  </nav>
  <div class="label">Creative</div>
@@ -472,8 +540,8 @@ h2,h3{letter-spacing:-.02em}
  </nav>
  <div class="label">System</div>
  <nav class="nav"><button data-view="settings"><svg class="ico l" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-Setting-light"/></svg><svg class="ico b" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-Setting-bold"/></svg>Settings</button></nav>
- <div class="side-promo"><b>Studio plan</b><p>3 of 5 client seats in use this month.</p><div class="bar"><i></i></div><button onclick="go('settings')">Manage plan</button></div>
- <div class="profile-bar"><div class="profile"><div class="avatar">SD</div><div><b>Shingi Dzamu</b><small>The Monogram Club</small></div></div></div>
+ <div class="side-promo"><b>Saved in this browser</b><p id="backupNote">No backup downloaded yet.</p><button onclick="exportData()">Download backup</button></div>
+ <div class="profile-bar"><div class="profile"><div class="avatar" id="profAv">SD</div><div><b id="profName">Shingi Dzamu</b><small id="profStudio">The Monogram Club</small></div></div></div>
 </aside>
 
 <main class="main">
@@ -482,61 +550,44 @@ h2,h3{letter-spacing:-.02em}
 <div class="content">
 <!-- OVERVIEW -->
 <section id="dashboard" class="view active">
- <div class="page-head"><div><div class="eyebrow" id="dashDate">Monday · 05 October 2026</div><h1 id="dashHello">Good evening, Shingi.</h1><p>Four projects are moving. Two need client attention.</p></div><button class="btn dark" onclick="openModal('newProject')">＋ New project</button></div>
+ <div class="page-head"><div><div class="eyebrow" id="dashDate"></div><h1 id="dashHello">Good day.</h1><p id="dashSummary"></p></div><button class="btn dark" onclick="editProject()">＋ New project</button></div>
  <div class="grid stats">
-  <div class="card stat clickable" onclick="go('projects')"><div class="stat-ico"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-Folder-light"/></svg></div><div class="stat-head"><span class="eyebrow">Active projects</span><span class="chip good">+1 this month</span></div><div class="stat-num">04</div><div class="stat-note">Design · Strategy · Creative · Feedback</div></div>
-  <div class="card stat clickable" onclick="go('tasks')"><div class="stat-ico"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-TickSquare-light"/></svg></div><div class="stat-head"><span class="eyebrow">Open tasks</span><span class="chip info" id="statToday">03 today</span></div><div class="stat-num" id="statOpen">07</div><div class="stat-note">Nothing overdue</div></div>
-  <div class="card stat clickable" onclick="go('clients')"><div class="stat-ico"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-TwoUsers-light"/></svg></div><div class="stat-head"><span class="eyebrow">Awaiting client</span><span class="chip warn">Needs reply</span></div><div class="stat-num">02</div><div class="stat-note">KLG · Broker Free</div></div>
+  <div class="card stat clickable" onclick="go('projects')"><div class="stat-ico"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-Folder-light"/></svg></div><div class="stat-head"><span class="eyebrow">Active projects</span><span class="chip good" id="statProjChip"></span></div><div class="stat-num" id="statProjects">00</div><div class="stat-note" id="statProjNote"></div></div>
+  <div class="card stat clickable" onclick="go('tasks')"><div class="stat-ico"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-TickSquare-light"/></svg></div><div class="stat-head"><span class="eyebrow">Open tasks</span><span class="chip info" id="statToday"></span></div><div class="stat-num" id="statOpen">00</div><div class="stat-note" id="statTaskNote"></div></div>
+  <div class="card stat clickable" onclick="go('clients')"><div class="stat-ico"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-TwoUsers-light"/></svg></div><div class="stat-head"><span class="eyebrow">Awaiting client</span><span class="chip warn" id="statAwaitChip"></span></div><div class="stat-num" id="statAwait">00</div><div class="stat-note" id="statAwaitNote"></div></div>
   <div class="card stat clickable" onclick="go('brandhub')"><div class="stat-ico"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-Home-light"/></svg></div><div class="stat-head"><span class="eyebrow">Brand Hubs</span><span class="chip good">02 live</span></div><div class="stat-num">03</div><div class="stat-note">1 draft · 2 published</div></div>
  </div>
  <div class="grid dashboard-grid">
-  <div class="card feature"><div class="art"></div><div><div class="eyebrow" style="color:#707069">Featured project</div><h2>KLG Investor Portal</h2><p>Discovery is in progress and the strategy is taking shape. The design is being refined for presentation while the client-facing Brand Hub is being assembled in parallel.</p></div><div class="feature-bottom"><div class="feature-progress"><div class="eyebrow" style="color:#777;margin-bottom:6px">Project progress</div><div class="track"><i></i></div><div class="small">78% complete · Design</div></div><button class="btn" onclick="go('project')">Open project</button></div></div>
-  <div class="card focus"><div class="section-head"><h3>Today <span class="cnt">3</span></h3><a href="#" onclick="go('tasks');return false">View all</a></div>
-   <div class="task clickable" onclick="toggleTask(this)"><div class="check"></div><div><b>Refine KLG property cards</b><small>KLG · Design</small></div><span class="chip bad">High</span><time>Today</time></div>
-   <div class="task clickable" onclick="toggleTask(this)"><div class="check"></div><div><b>Review Yongda strategy</b><small>Yongda · Strategy</small></div><span class="chip warn">Medium</span><time>16:00</time></div>
-   <div class="task clickable" onclick="toggleTask(this)"><div class="check"></div><div><b>Send Broker Free revision</b><small>Broker Free · Feedback</small></div><span class="chip info">Normal</span><time>18:30</time></div>
-  </div>
+  <div class="card feature" id="dashFeature"></div>
+  <div class="card focus"><div class="section-head"><h3>Today <span class="cnt" id="dashTodayCnt">0</span></h3><a href="#" onclick="go('tasks');return false">View all</a></div><div id="dashToday"></div></div>
  </div>
  <div class="grid lower">
-  <div class="card pad"><div class="section-head"><h3>Active projects <span class="cnt">4</span></h3><a href="#" onclick="go('projects');return false">All projects</a></div>
-   <div class="project-row clickable" onclick="go('project')"><div class="thumb"></div><div><b>KLG Investor Portal</b><small>Digital product · Design</small><div class="pbar"><i style="width:78%"></i></div></div><div class="pct">78%</div></div>
-   <div class="project-row clickable" onclick="go('project')"><div class="thumb y"></div><div><b>Yongda Investments</b><small>Brand identity · Strategy</small><div class="pbar"><i style="width:52%"></i></div></div><div class="pct">52%</div></div>
-   <div class="project-row clickable" onclick="go('project')"><div class="thumb s"></div><div><b>Salad Stories</b><small>Corporate brand · Creative</small><div class="pbar"><i style="width:34%"></i></div></div><div class="pct">34%</div></div>
-   <div class="project-row clickable" onclick="go('project')"><div class="thumb b"></div><div><b>Broker Free</b><small>Brand identity · Feedback</small><div class="pbar"><i style="width:64%"></i></div></div><div class="pct">64%</div></div>
-  </div>
-  <div class="card pad"><div class="section-head"><h3>Recent activity</h3><span class="chip good"><i></i>Live</span></div>
-   <div class="activity clickable is-new" onclick="go('discovery')"><div class="dot"></div><div><b>KLG — Discovery in progress</b><p>Shingi · 14 minutes ago</p></div></div>
-   <div class="activity clickable" onclick="go('project')"><div class="dot"></div><div><b>Yongda — Strategy updated</b><p>Shingi · 1 hour ago</p></div></div>
-   <div class="activity clickable" onclick="go('clients')"><div class="dot"></div><div><b>Broker Free — Feedback received</b><p>Client portal · Yesterday</p></div></div>
-  </div>
+  <div class="card pad"><div class="section-head"><h3>Active projects <span class="cnt" id="dashProjCnt">0</span></h3><a href="#" onclick="go('projects');return false">All projects</a></div><div id="dashProjects"></div></div>
+  <div class="card pad"><div class="section-head"><h3>Recent activity</h3><span class="chip good"><i></i>Live</span></div><div id="dashActivity"></div></div>
  </div>
 </section>
 
 <!-- PROJECTS -->
-<section id="projects" class="view"><div class="page-head"><div><div class="eyebrow">Studio</div><h1>Projects</h1><p>Everything currently in motion at the studio.</p></div><div class="actions"><button class="btn" onclick="openModal('newProject')">Filter</button><button class="btn dark" onclick="openModal('newProject')">＋ New project</button></div></div><div class="grid" style="grid-template-columns:repeat(2,1fr)"><article class="card proj clickable" onclick="go('project')"><div class="proj-cover" style="background:var(--g1)"><span style="color:#fff">Digital product</span><span class="chip" style="background:rgba(255,255,255,.88);box-shadow:none;color:#16181d">Design</span></div><div class="pad"><div class="proj-top"><div><b>KLG Investor Portal</b><small>Kingslane Group</small></div><span class="chip good">On track</span></div><div class="pbar" style="margin-top:14px"><i style="width:78%"></i></div><div class="proj-meta"><span>78% complete</span><span>3 open tasks</span><span>Due 18 Oct</span></div></div></article><article class="card proj clickable" onclick="go('project')"><div class="proj-cover" style="background:linear-gradient(135deg,#d9d9d1,#9d9d93)"><span style="color:#2a2a26">Brand identity</span><span class="chip" style="background:rgba(255,255,255,.88);box-shadow:none;color:#16181d">Strategy</span></div><div class="pad"><div class="proj-top"><div><b>Yongda Investments</b><small>Corporate investment firm</small></div><span class="chip good">On track</span></div><div class="pbar" style="margin-top:14px"><i style="width:52%"></i></div><div class="proj-meta"><span>52% complete</span><span>2 open tasks</span><span>Due 24 Oct</span></div></div></article><article class="card proj clickable" onclick="go('project')"><div class="proj-cover" style="background:var(--g2)"><span style="color:#1d2a1d">Corporate brand</span><span class="chip" style="background:rgba(255,255,255,.88);box-shadow:none;color:#16181d">Creative</span></div><div class="pad"><div class="proj-top"><div><b>Salad Stories</b><small>Brand + presentation</small></div><span class="chip warn">At risk</span></div><div class="pbar" style="margin-top:14px"><i style="width:34%"></i></div><div class="proj-meta"><span>34% complete</span><span>5 open tasks</span><span>Due 02 Nov</span></div></div></article><article class="card proj clickable" onclick="go('project')"><div class="proj-cover" style="background:linear-gradient(135deg,#bdeee4,#effffb)"><span style="color:#17302b">Brand identity</span><span class="chip" style="background:rgba(255,255,255,.88);box-shadow:none;color:#16181d">Feedback</span></div><div class="pad"><div class="proj-top"><div><b>Broker Free</b><small>Dubai rental platform</small></div><span class="chip info">With client</span></div><div class="pbar" style="margin-top:14px"><i style="width:64%"></i></div><div class="proj-meta"><span>64% complete</span><span>1 open tasks</span><span>Due 11 Oct</span></div></div></article></div></section>
+<section id="projects" class="view"><div class="page-head"><div><div class="eyebrow">Studio</div><h1>Projects</h1><p>Everything currently in motion at the studio.</p></div><div class="actions"><select class="btn" id="projFilter" aria-label="Show projects" onchange="renderProjects()"><option value="active">Active</option><option value="complete">Complete</option><option value="all">All projects</option></select><button class="btn dark" onclick="editProject()">＋ New project</button></div></div><div class="grid proj-grid" id="projGrid"></div></section>
 
 <!-- PROJECT -->
 <section id="project" class="view">
- <div class="page-head"><div><div class="eyebrow">Project · Kingslane Group</div><h1>KLG Investor Portal</h1><p>Digital product · Investor experience</p></div><div class="top-actions"><button class="btn" onclick="go('brandhub')">Brand Hub</button><button class="btn" onclick="openModal('clientPortal')">Client portal</button><button class="btn dark" onclick="openModal('newTask')">＋ Add task</button></div></div>
- <div class="card banner"><div class="banner-top"><div><div class="eyebrow">Current stage</div><h2 id="stageTitle">Design</h2><p id="stageDesc">Refining the investor dashboard before presentation.</p></div><span class="chip good" id="stageState">On track</span></div><div class="metric-row"><div class="mini"><label>Progress</label><strong id="stageProgress">78%</strong></div><div class="mini"><label>Tasks open</label><strong>03</strong></div><div class="mini"><label>Client</label><strong style="font-size:15px">Awaiting</strong></div></div><div class="banner-strip"></div></div>
- <div class="stagebar" id="projectStages"><button class="active" data-stage="Overview">Overview</button><button data-stage="Discovery">Discovery</button><button data-stage="Strategy">Strategy</button><button data-stage="Creative Direction">Creative Direction</button><button data-stage="Design">Design</button><button data-stage="Presentation">Presentation</button><button data-stage="Delivery">Delivery</button></div>
+ <div class="page-head"><div><div class="eyebrow" id="pjEyebrow"></div><h1 id="pjName"></h1><p id="pjType"></p></div><div class="top-actions"><button class="btn" onclick="editProject(curProject)">Edit project</button><button class="btn" onclick="go('discovery')">Discovery</button><button class="btn dark" onclick="editTask(null,{projectId:curProject})">＋ Add task</button></div></div>
+ <div class="card banner"><div class="banner-top"><div><div class="eyebrow">Current stage</div><h2 id="stageTitle"></h2><p id="stageDesc"></p></div><span class="chip good" id="stageState"></span></div><div class="metric-row"><div class="mini"><label>Progress</label><strong id="stageProgress"></strong></div><div class="mini"><label>Tasks open</label><strong id="pjOpen"></strong></div><div class="mini"><label>Due</label><strong id="pjDue" style="font-size:15px"></strong></div></div><div class="banner-strip"></div></div>
+ <div class="stagebar" id="projectStages" role="group" aria-label="Project stage"></div>
  <div class="grid project-grid">
-  <div class="card pad"><div class="section-head"><h3>Next actions</h3><button class="btn" style="height:29px;padding:0 9px;font-size:11px" onclick="openModal('newTask')">＋ Add</button></div>
-   <div class="task clickable" onclick="toggleTask(this)"><div class="check"></div><div><b>Refine property cards</b><small>KLG · Design · Today</small></div></div>
-   <div class="task clickable" onclick="toggleTask(this)"><div class="check"></div><div><b>Prepare presentation deck</b><small>KLG · Presentation · Tomorrow</small></div></div>
-   <div class="task clickable" onclick="toggleTask(this)"><div class="check"></div><div><b>Upload revised PDF</b><small>KLG · Delivery · Friday</small></div></div>
-  </div>
-  <div class="card pad"><div class="section-head"><h3>Project activity</h3><span class="pill">3 events</span></div><div class="event"><div class="edot"></div><div><b>Discovery in progress</b><p>Shingi · 14 min ago</p></div></div><div class="event"><div class="edot"></div><div><b>Strategy updated</b><p>Shingi · Yesterday</p></div></div><div class="event"><div class="edot"></div><div><b>Presentation task added</b><p>Shingi · Yesterday</p></div></div></div>
+  <div class="card pad"><div class="section-head"><h3>Next actions <span class="cnt" id="pjTaskCnt">0</span></h3><button class="btn" style="height:29px;padding:0 9px;font-size:11.5px" onclick="editTask(null,{projectId:curProject})">＋ Add</button></div><div id="pjTasks"></div></div>
+  <div class="card pad"><div class="section-head"><h3>Project activity</h3><span class="pill" id="pjEventCnt"></span></div><div id="pjActivity"></div></div>
  </div>
  <div class="grid project-grid" style="margin-top:13px">
-  <div class="card pad"><div class="section-head"><h3>Project workspace</h3><span class="pill">Context ready</span></div><div class="project-tabs"><button class="soft-tab active" onclick="projectPanel('brief',this)">Brief</button><button class="soft-tab" onclick="projectPanel('strategy',this)">Strategy</button><button class="soft-tab" onclick="projectPanel('direction',this)">Creative direction</button><button class="soft-tab" onclick="projectPanel('files',this)">Files</button></div><div id="projectPanel" class="panel-copy"><b>Project brief</b><p>Modernise the investor portal experience with clearer hierarchy, calmer visual language and stronger property-level actions.</p></div></div>
-  <div class="card pad"><div class="section-head"><h3>Brand context</h3><button class="btn" style="height:29px;padding:0 9px;font-size:11px" onclick="go('brandlab')">Open Brand Lab</button></div><div class="palette"><div class="swatch" style="background:#111"><span>#111111</span></div><div class="swatch" style="background:#e8a0cc"><span>#E8A0CC</span></div><div class="swatch" style="background:#b9e36a"><span>#B9E36A</span></div><div class="swatch" style="background:#ededeb"><span>#EDEDEB</span></div></div><div class="pair"><span>Personality</span><b>Premium · Precise · Modern</b></div><div class="pair"><span>Brand Hub</span><b>Draft</b></div></div>
+  <div class="card pad"><div class="section-head"><h3>Project workspace</h3><span class="pill" id="pjSaved">Saved</span></div><div class="project-tabs" role="tablist"><button class="soft-tab active" data-pane="brief" onclick="projectPanel('brief',this)">Brief</button><button class="soft-tab" data-pane="strategy" onclick="projectPanel('strategy',this)">Strategy</button><button class="soft-tab" data-pane="direction" onclick="projectPanel('direction',this)">Creative direction</button><button class="soft-tab" data-pane="files" onclick="projectPanel('files',this)">Files</button></div><textarea id="projectPanel" class="workspace-text" aria-label="Project workspace notes" oninput="saveWorkspace(this.value)"></textarea></div>
+  <div class="card pad"><div class="section-head"><h3>Brand context</h3><button class="btn" style="height:29px;padding:0 9px;font-size:11.5px" onclick="editProject(curProject)">Edit</button></div><div class="palette" id="pjPalette"></div><div class="pair"><span>Personality</span><b id="pjPersonality"></b></div><div class="pair"><span>Client</span><b id="pjClient"></b></div><div class="pair"><span>Discovery</span><b id="pjDisc"></b></div></div>
  </div>
 </section>
 
 <!-- DISCOVERY -->
 <section id="discovery" class="view">
- <div class="page-head"><div><div class="eyebrow">Project · KLG Investor Portal</div><h1>Discovery</h1><p>This is the source of truth for the strategy that follows.</p></div><div class="actions"><button class="btn" onclick="saveDiscovery()">Save draft</button><button class="btn dark" onclick="tryApprove()">Approve discovery</button></div></div>
+ <div class="page-head"><div><div class="eyebrow" id="discEyebrowProj">Project</div><h1>Discovery</h1><p>This is the source of truth for the strategy that follows.</p></div><div class="actions"><select class="btn" id="discProject" aria-label="Discovery for project" onchange="setDiscProject(this.value)"></select><button class="btn dark" id="discApprove" onclick="tryApprove()">Approve discovery</button></div></div>
  <div class="grid discovery-shell">
   <aside class="card process"><div class="process-title"><b>Discovery workflow</b><small id="discCount"></small></div>
    <button class="process-step active" data-disc="Brief"><span class="num">01</span>Project brief<span class="checkmark"></span></button>
@@ -604,10 +655,10 @@ h2,h3{letter-spacing:-.02em}
 </section>
 
 <!-- CLIENTS -->
-<section id="clients" class="view"><div class="page-head"><div><div class="eyebrow">Studio</div><h1>Clients</h1><p>Relationships, work in progress and communication.</p></div><button class="btn dark" onclick="openModal('newClient')">＋ New client</button></div><div class="card pad"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><div class="eyebrow">All clients</div><input id="clientSearch" class="input" placeholder="Search clients…" style="height:35px;border:1px solid var(--line);border-radius:9px;padding:0 10px;font-size:12px" oninput="filterClients(this.value)"></div><table class="table"><thead><tr><th>Client</th><th>Project</th><th>Status</th><th>Activity</th></tr></thead><tbody id="clientRows"><tr class="clickable" data-name="Kingslane Group" onclick="go('project')"><td><div class="cell-id"><span class="mono-av" style="background:#1f2937">KG</span><b>Kingslane Group</b></div></td><td>KLG Investor Portal</td><td><span class="chip warn">Awaiting</span></td><td>14 min ago</td></tr><tr class="clickable" data-name="Yongda Investments" onclick="go('project')"><td><div class="cell-id"><span class="mono-av" style="background:#5b6472">YI</span><b>Yongda Investments</b></div></td><td>Brand Identity</td><td><span class="chip good">Active</span></td><td>1 hr ago</td></tr><tr class="clickable" data-name="Salad Stories" onclick="go('project')"><td><div class="cell-id"><span class="mono-av" style="background:#4b6b4f">SS</span><b>Salad Stories</b></div></td><td>Corporate Brand</td><td><span class="chip good">Active</span></td><td>Yesterday</td></tr><tr class="clickable" data-name="Broker Free" onclick="go('project')"><td><div class="cell-id"><span class="mono-av" style="background:#3d6e78">BF</span><b>Broker Free</b></div></td><td>Brand Identity</td><td><span class="chip info">Feedback</span></td><td>Yesterday</td></tr></tbody></table></div></section>
+<section id="clients" class="view"><div class="page-head"><div><div class="eyebrow">Studio</div><h1>Clients</h1><p>Relationships, work in progress and communication.</p></div><button class="btn dark" onclick="editClient()">＋ New client</button></div><div class="card pad"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px"><div class="eyebrow">All clients</div><input id="clientSearch" class="input" placeholder="Search clients…" aria-label="Search clients" style="height:35px;border:1px solid var(--line);border-radius:9px;padding:0 10px;font-size:12px;min-width:0" oninput="renderClients()"></div><div class="table-wrap"><table class="table"><thead><tr><th>Client</th><th>Projects</th><th>Status</th><th>Activity</th></tr></thead><tbody id="clientRows"></tbody></table></div></div></section>
 
 <!-- TASKS -->
-<section id="tasks" class="view"><div class="page-head"><div><div class="eyebrow">Studio</div><h1>Tasks</h1><p>A clean queue of what needs to move next.</p></div><div class="actions"><button class="btn" onclick="openModal('newTask')">Filter</button><button class="btn dark" onclick="openModal('newTask')">＋ Add task</button></div></div><div class="grid board" style="grid-template-columns:repeat(3,1fr);align-items:start"><div class="card pad"><div class="col-head"><h3><i class="tone bad"></i>Today<span class="cnt">3</span></h3><button class="icon-btn sm" aria-label="Add task to Today" onclick="openModal('newTask')">+</button></div><div class="task clickable" onclick="toggleTask(this)"><div class="check"></div><div><b>Refine KLG property cards</b><small>KLG · Design</small></div><span class="chip bad">High</span><time>Today</time></div><div class="task clickable" onclick="toggleTask(this)"><div class="check"></div><div><b>Review Yongda strategy</b><small>Yongda · Strategy</small></div><span class="chip warn">Medium</span><time>16:00</time></div><div class="task clickable" onclick="toggleTask(this)"><div class="check"></div><div><b>Send Broker Free revision</b><small>Broker Free · Feedback</small></div><span class="chip info">Normal</span><time>18:30</time></div><button class="add-row" onclick="openModal('newTask')">+ Add task</button></div><div class="card pad"><div class="col-head"><h3><i class="tone warn"></i>This week<span class="cnt">2</span></h3><button class="icon-btn sm" aria-label="Add task to This week" onclick="openModal('newTask')">+</button></div><div class="task clickable" onclick="toggleTask(this)"><div class="check"></div><div><b>Upload revised KLG PDF</b><small>KLG · Delivery</small></div><span class="chip warn">Medium</span><time>Wed</time></div><div class="task clickable" onclick="toggleTask(this)"><div class="check"></div><div><b>Salad Stories deck</b><small>Salad Stories · Presentation</small></div><span class="chip info">Normal</span><time>Fri</time></div><button class="add-row" onclick="openModal('newTask')">+ Add task</button></div><div class="card pad"><div class="col-head"><h3><i class="tone info"></i>Waiting<span class="cnt">1</span></h3><button class="icon-btn sm" aria-label="Add task to Waiting" onclick="openModal('newTask')">+</button></div><div class="task clickable" onclick="toggleTask(this)"><div class="check"></div><div><b>KLG client feedback</b><small>KLG · Client</small></div><span class="chip info">Blocked</span><time>3 days</time></div><button class="add-row" onclick="openModal('newTask')">+ Add task</button></div></div></section>
+<section id="tasks" class="view"><div class="page-head"><div><div class="eyebrow">Studio</div><h1>Tasks</h1><p>A clean queue of what needs to move next.</p></div><div class="actions"><select class="btn" id="taskFilter" aria-label="Filter tasks by project" onchange="renderTasks()"></select><button class="btn dark" onclick="editTask()">＋ Add task</button></div></div><div class="grid board" style="grid-template-columns:repeat(3,1fr);align-items:start" id="taskBoard"></div></section>
 
 <!-- DOCUMENTS -->
 <section id="documents" class="view"><div class="page-head"><div><div class="eyebrow">Creative</div><h1>Documents</h1><p>Documents that run your projects and studio.</p></div><button class="btn dark" onclick="openModal('newDocument')">＋ New document</button></div><div class="grid doc-grid"><div class="card doc" onclick="openModal('docDetail')"><div class="doc-icon">▤</div><b>Creative Brief</b><p>Discovery, requirements and context.</p></div><div class="card doc" onclick="openModal('docDetail')"><div class="doc-icon">◐</div><b>Brand Strategy</b><p>Positioning, audience, promise and direction.</p></div><div class="card doc" onclick="openModal('docDetail')"><div class="doc-icon">↗</div><b>Proposal</b><p>Scope, timeline, investment and next steps.</p></div><div class="card doc" onclick="openModal('docDetail')"><div class="doc-icon">□</div><b>Scope of Work</b><p>Deliverables and responsibilities.</p></div><div class="card doc" onclick="openModal('docDetail')"><div class="doc-icon">▱</div><b>Presentation</b><p>Client-facing project presentation.</p></div><div class="card doc" onclick="openModal('docDetail')"><div class="doc-icon">◇</div><b>Brand Guidelines</b><p>Final brand system and rules.</p></div></div></section>
@@ -619,7 +670,7 @@ h2,h3{letter-spacing:-.02em}
 <section id="templates" class="view"><div class="page-head"><div><div class="eyebrow">Creative</div><h1>Templates</h1><p>Reusable systems for The Monogram Club.</p></div><button class="btn dark" onclick="openModal('newTemplate')">＋ New template</button></div><div class="grid" style="grid-template-columns:repeat(3,1fr)"><div class="card doc clickable" onclick="openModal('templateDetail')"><b>Branding Proposal</b><p>Standard commercial proposal.</p></div><div class="card doc clickable" onclick="openModal('templateDetail')"><b>Discovery Questionnaire</b><p>Core client discovery questions.</p></div><div class="card doc clickable" onclick="openModal('templateDetail')"><b>Brand Strategy</b><p>Strategy framework.</p></div></div></section>
 
 <!-- CALENDAR -->
-<section id="calendar" class="view"><div class="page-head"><div><div class="eyebrow">Studio</div><h1>Calendar</h1><p>Deadlines, meetings and project milestones.</p></div><button class="btn dark" onclick="openModal('calendarEvent')">＋ Add event</button></div><div class="card pad"><div class="section-head"><h3>October 2026</h3><span class="pill">2 upcoming</span></div><div class="grid" style="grid-template-columns:repeat(7,1fr);margin-top:12px" id="calendarGrid"></div></div></section>
+<section id="calendar" class="view"><div class="page-head"><div><div class="eyebrow">Studio</div><h1>Calendar</h1><p>Deadlines, meetings and project milestones.</p></div><button class="btn dark" onclick="editEvent()">＋ Add event</button></div><div class="card pad"><div class="section-head"><h3 id="calTitle"></h3><div class="cal-nav"><span class="pill" id="calCount"></span><button class="icon-btn" aria-label="Previous month" onclick="calMove(-1)">‹</button><button class="btn" onclick="calMove(0)">Today</button><button class="icon-btn" aria-label="Next month" onclick="calMove(1)">›</button></div></div><div class="grid" id="calendarGrid"></div></div><div class="card pad" style="margin-top:13px"><div class="section-head"><h3>This month</h3></div><div id="calAgenda"></div></div></section>
 
 <!-- AI -->
 <section id="ai" class="view"><div class="page-head"><div><div class="eyebrow">Intelligence</div><h1>Monogram AI</h1><p>An internal assistant grounded in project, strategy and brand context.</p></div></div><div class="ai-page"><div class="eyebrow" style="color:#70706a">KLG · active context</div><h2>What are we solving?</h2><p>Use the assistant to analyse discovery, draft strategic directions, create project actions, prepare client messages or turn an approved identity into a Brand Hub.</p><textarea id="aiInput" placeholder="e.g. Analyse the discovery and suggest three distinct strategic opportunities."></textarea><div class="chips"><button onclick="fillAI('Analyse the discovery and identify the strongest positioning opportunity.')">Analyse discovery</button><button onclick="fillAI('Build a concise brand strategy from the approved discovery.')">Build strategy</button><button onclick="fillAI('Create three creative direction routes based on the strategy.')">Creative directions</button><button onclick="fillAI('Turn the approved identity into a Brand Hub structure.')">Build Brand Hub</button></div><div style="margin-top:14px"><button class="btn" onclick="askAI()">Ask Monogram AI</button></div></div><div class="grid" style="grid-template-columns:1fr 1fr;margin-top:16px"><div class="card pad"><div class="section-head"><h3>Recent threads</h3><a href="#" onclick="go('generations');return false">All generations</a></div><div class="ai-recent clickable" onclick="go('generations')"><div><b>Three positioning routes for KLG</b><small>Strategy</small></div><time>12 minutes ago</time></div><div class="ai-recent clickable" onclick="go('generations')"><div><b>Discovery synthesis — Yongda</b><small>Discovery</small></div><time>Yesterday</time></div><div class="ai-recent clickable" onclick="go('generations')"><div><b>Brand Hub outline — Broker Free</b><small>Brand Hub</small></div><time>2 days ago</time></div></div><div class="card pad"><div class="section-head"><h3>Context in use</h3><span class="chip good">Connected</span></div><div class="pair"><span>Project</span>KLG Investor Portal</div><div class="pair"><span>Discovery</span>1 of 5 sections complete</div><div class="pair"><span>Strategy</span>Draft in progress</div><div class="pair"><span>Brand Hub</span>12 sections, 6 published</div><div class="pair"><span>Assets</span>Palette, type and logo approved</div></div></div></section>
@@ -628,27 +679,445 @@ h2,h3{letter-spacing:-.02em}
 <section id="generations" class="view"><div class="page-head"><div><div class="eyebrow">Intelligence</div><h1>Generations</h1><p>Creative outputs and AI history.</p></div><button class="btn dark" onclick="go('brandlab')">＋ New generation</button></div><div class="grid" style="grid-template-columns:repeat(3,1fr)"><div class="card clickable" onclick="openModal('assetDetail')" style="height:210px;background:var(--g3);padding:12px;display:flex;align-items:flex-end"><span class="pill">KLG · 2 hours ago</span></div><div class="card clickable" onclick="openModal('assetDetail')" style="height:210px;background:#fafaf8;display:grid;place-items:center;font-size:48px">◇</div><div class="card clickable" onclick="openModal('assetDetail')" style="height:210px;background:var(--g4);display:grid;place-items:center;font-size:11px;font-weight:700">ILLUSTRATION DIRECTION</div></div></section>
 
 <!-- SETTINGS -->
-<section id="settings" class="view"><div class="page-head"><div><div class="eyebrow">System</div><h1>Settings</h1><p>Studio profile and system preferences.</p></div></div><div class="grid" style="grid-template-columns:1fr 1fr"><div class="card pad"><div class="section-head"><h3>Studio profile</h3><button class="btn" onclick="toast('Studio profile saved')">Save</button></div><div class="field"><label>Studio name</label><input value="The Monogram Club"></div><div class="field" style="margin-top:10px"><label>Designer</label><input value="Shingi Dzamu"></div></div><div class="card pad"><div class="section-head"><h3>AI configuration</h3><span class="pill">Prototype</span></div><p style="font-size:11px;color:#888;line-height:1.55">The architecture is ready for a real model provider and project-aware context layer. This build keeps the generation actions local.</p><button class="btn dark" onclick="toast('AI settings opened')">Configure AI</button></div></div></section>
+<section id="settings" class="view"><div class="page-head"><div><div class="eyebrow">System</div><h1>Settings</h1><p>Studio profile, your data and system preferences.</p></div></div><div class="grid settings-grid"><div class="card pad"><div class="section-head"><h3>Studio profile</h3><button class="btn" onclick="saveProfile()">Save profile</button></div><div class="field"><label for="setStudio">Studio name</label><input id="setStudio"></div><div class="field" style="margin-top:10px"><label for="setDesigner">Your name</label><input id="setDesigner"></div></div><div class="card pad"><div class="section-head"><h3>Your data</h3><span class="pill" id="setBackup"></span></div><p class="set-note">Everything is saved in this browser on this device. Download a backup regularly, and use it to move your studio to another browser or machine.</p><div class="set-actions"><button class="btn dark" onclick="exportData()">Download backup</button><button class="btn" onclick="document.getElementById('importFile').click()">Restore from backup</button><input type="file" id="importFile" accept="application/json,.json" hidden onchange="importData(this)"></div><div class="rule"></div><p class="set-note">Start over with the sample studio, or clear everything and begin with your own work.</p><div class="set-actions"><button class="btn" onclick="resetData('sample')">Load sample data</button><button class="btn danger" onclick="resetData('empty')">Erase all data</button></div><p class="set-note" id="setCounts"></p></div><div class="card pad"><div class="section-head"><h3>AI configuration</h3><span class="pill">Prototype</span></div><p class="set-note">Monogram AI, Brand Lab and the Brand Hub generator are not connected to a model yet. Their buttons show what will happen, but nothing is generated.</p><button class="btn dark" onclick="toast('AI settings opened')">Configure AI</button></div></div></section>
 </div>
 </main>
 </div>
 
-<div id="modalBg" class="modal-bg" onclick="closeModal(event)"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" onclick="event.stopPropagation()"><div class="modal-head"><div><div class="eyebrow" id="modalEyebrow">Monogram OS</div><h3 id="modalTitle">Create</h3></div><button class="close" aria-label="Close" onclick="closeModal()">×</button></div><p id="modalText">Complete the fields below.</p><div id="modalBody" class="modal-body"></div><div class="modal-actions"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn dark" id="modalPrimary">Continue</button></div></div></div>
+<div id="modalBg" class="modal-bg" onclick="closeModal(event)"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" onclick="event.stopPropagation()"><div class="modal-head"><div><div class="eyebrow" id="modalEyebrow">Monogram OS</div><h3 id="modalTitle">Create</h3></div><button class="close" aria-label="Close" onclick="closeModal()">×</button></div><p id="modalText">Complete the fields below.</p><div id="modalBody" class="modal-body"></div><div class="modal-actions"><button class="btn danger" id="modalDelete" hidden>Delete</button><button class="btn" onclick="closeModal()">Cancel</button><button class="btn dark" id="modalPrimary">Continue</button></div></div></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-const labels={dashboard:'Overview',projects:'Projects',project:'KLG Investor Portal',clients:'Clients',tasks:'Tasks',calendar:'Calendar',discovery:'Discovery',brandlab:'Brand Lab',brandhub:'Brand Hub',documents:'Documents',assets:'Assets',templates:'Templates',ai:'Monogram AI',generations:'Generations',settings:'Settings'};
-const views=[...document.querySelectorAll('.view')], nav=[...document.querySelectorAll('.nav button')];
-function go(id){views.forEach(v=>v.classList.toggle('active',v.id===id));nav.forEach(n=>n.classList.toggle('active',n.dataset.view===id));document.getElementById('crumb').textContent=labels[id]||id;window.scrollTo(0,0);document.querySelector('.sidebar').classList.remove('open')}
+
+/* ---------- Helpers ---------- */
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+const pad2=n=>String(n).padStart(2,'0');
+const uid=p=>p+'-'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const iso=d=>d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate());
+const parseISO=s=>{const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)};
+const todayISO=()=>iso(new Date());
+const addDays=(n,from=new Date())=>{const d=new Date(from);d.setDate(d.getDate()+n);return iso(d)};
+const dayDiff=s=>Math.round((parseISO(s)-parseISO(todayISO()))/864e5);
+function fmtDue(s){if(!s)return'';const n=dayDiff(s);if(n===0)return'Today';if(n===1)return'Tomorrow';if(n===-1)return'Yesterday';const d=parseISO(s);if(n>1&&n<7)return d.toLocaleDateString('en-GB',{weekday:'short'});return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'})}
+const dueWord=s=>{const w=fmtDue(s);return /^(Today|Tomorrow|Yesterday)$/.test(w)?w.toLowerCase():w};
+function fmtDate(s){return s?parseISO(s).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}):''}
+function relTime(ts){const m=Math.round((Date.now()-ts)/6e4);if(m<1)return'Just now';if(m<60)return m+' min ago';const h=Math.round(m/60);if(h<24)return h+(h===1?' hr ago':' hrs ago');const d=Math.round(h/24);if(d===1)return'Yesterday';if(d<7)return d+' days ago';return new Date(ts).toLocaleDateString('en-GB',{day:'2-digit',month:'short'})}
+const initials=s=>String(s||'?').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase()||'?';
+const plural=(n,w)=>n+' '+w+(n===1?'':'s');
+function toast(msg){const t=$('toast');t.textContent=msg;t.style.display='block';clearTimeout(window.__t);window.__t=setTimeout(()=>t.style.display='none',2600)}
+
+/* ---------- Vocabulary ---------- */
+const STAGES=['Discovery','Strategy','Creative Direction','Design','Presentation','Delivery'];
+const STAGE_PCT={Discovery:15,Strategy:35,'Creative Direction':55,Design:75,Presentation:88,Delivery:96};
+const STAGE_DESC={Discovery:'Capturing business, audience, positioning and visual context.',Strategy:'Turning discovery into positioning, promise and strategic direction.','Creative Direction':'Building distinct visual routes from the approved strategy.',Design:'Refining the work before it goes to the client.',Presentation:'Preparing the work and rationale for client review.',Delivery:'Packaging final files and handover resources.'};
+const HEALTH={'On track':'good','At risk':'warn','With client':'info','Blocked':'bad','Complete':'good'};
+const CLIENT_STATUS={Active:'good',Awaiting:'warn',Feedback:'info',Lead:'',Paused:'bad',Past:''};
+const PRIORITY={High:'bad',Medium:'warn',Normal:'info'};
+const COVERS=[['var(--g1)','#fff'],['var(--g2)','#1d2a1d'],['var(--g3)','#fff'],['var(--g4)','#fff'],['var(--g5)','#2b1820'],['var(--g6)','#17302b'],['linear-gradient(135deg,#d9d9d1,#9d9d93)','#2a2a26'],['linear-gradient(135deg,#bdeee4,#effffb)','#17302b'],['linear-gradient(135deg,#111,#555)','#fff']];
+const AV_COLORS=['#1f2937','#5b6472','#4b6b4f','#3d6e78','#6b4f63','#7a5c2e','#2f4858','#55505c'];
+
+/* ---------- Store ---------- */
+const DB_KEY='monogram-db',DISC_KEY='monogram-disc';
+function sampleDB(){
+ const now=Date.now();
+ return {v:1,profile:{studio:'The Monogram Club',designer:'Shingi Dzamu'},lastBackup:null,
+ clients:[
+  {id:'c-klg',name:'Kingslane Group',contact:'',email:'',phone:'',status:'Awaiting',color:'#1f2937',notes:'',created:now-40*864e5,updated:now-14*6e4},
+  {id:'c-yongda',name:'Yongda Investments',contact:'',email:'',phone:'',status:'Active',color:'#5b6472',notes:'Corporate investment firm.',created:now-30*864e5,updated:now-36e5},
+  {id:'c-salad',name:'Salad Stories',contact:'',email:'',phone:'',status:'Active',color:'#4b6b4f',notes:'',created:now-20*864e5,updated:now-864e5},
+  {id:'c-broker',name:'Broker Free',contact:'',email:'',phone:'',status:'Feedback',color:'#3d6e78',notes:'Dubai rental platform.',created:now-25*864e5,updated:now-864e5}
+ ],
+ projects:[
+  {id:'p-klg',name:'KLG Investor Portal',clientId:'c-klg',type:'Digital product',summary:'Investor experience',stage:'Design',health:'On track',progress:78,due:addDays(7),cover:0,palette:['#111111','#E8A0CC','#B9E36A','#EDEDEB'],personality:'Premium · Precise · Modern',approved:false,created:now-40*864e5,
+   notes:{brief:'Modernise the investor portal experience with clearer hierarchy, calmer visual language and stronger property-level actions.',strategy:'The platform should feel established, clear and calm, reducing friction for investors while remaining contemporary.',direction:'A restrained digital language: precise typography, generous spacing, subtle geometry and controlled colour.',files:'Brief.pdf · Strategy.pdf · Dashboard-v3.fig · Presentation-v2.pdf'}},
+  {id:'p-yongda',name:'Yongda Investments',clientId:'c-yongda',type:'Brand identity',summary:'Corporate investment firm',stage:'Strategy',health:'On track',progress:52,due:addDays(12),cover:6,palette:['#1B1B1B','#C9B48A','#F2EFE8'],personality:'Assured · Discreet · Global',approved:false,created:now-30*864e5,notes:{brief:'A corporate identity that signals scale and discretion to institutional investors.',strategy:'',direction:'',files:''}},
+  {id:'p-salad',name:'Salad Stories',clientId:'c-salad',type:'Corporate brand',summary:'Brand + presentation',stage:'Creative Direction',health:'At risk',progress:34,due:addDays(21),cover:1,palette:['#2F4A2C','#B9E36A','#FFF8EC'],personality:'Fresh · Warm · Honest',approved:false,created:now-20*864e5,notes:{brief:'Corporate brand and investor presentation for a healthy fast-casual group.',strategy:'',direction:'',files:''}},
+  {id:'p-broker',name:'Broker Free',clientId:'c-broker',type:'Brand identity',summary:'Dubai rental platform',stage:'Presentation',health:'With client',progress:64,due:addDays(3),cover:7,palette:['#0F3B3A','#BDEEE4','#FFFFFF'],personality:'Direct · Trustworthy · Light',approved:false,created:now-25*864e5,notes:{brief:'Identity for a commission-free rental platform in Dubai.',strategy:'',direction:'',files:''}}
+ ],
+ tasks:[
+  {id:'t-1',title:'Refine KLG property cards',projectId:'p-klg',tag:'Design',priority:'High',due:addDays(0),waiting:false,done:false},
+  {id:'t-2',title:'Review Yongda strategy',projectId:'p-yongda',tag:'Strategy',priority:'Medium',due:addDays(0),waiting:false,done:false},
+  {id:'t-3',title:'Send Broker Free revision',projectId:'p-broker',tag:'Feedback',priority:'Normal',due:addDays(0),waiting:false,done:false},
+  {id:'t-4',title:'Prepare KLG presentation deck',projectId:'p-klg',tag:'Presentation',priority:'Normal',due:addDays(1),waiting:false,done:false},
+  {id:'t-5',title:'Upload revised KLG PDF',projectId:'p-klg',tag:'Delivery',priority:'Medium',due:addDays(2),waiting:false,done:false},
+  {id:'t-6',title:'Salad Stories deck',projectId:'p-salad',tag:'Presentation',priority:'Normal',due:addDays(4),waiting:false,done:false},
+  {id:'t-7',title:'KLG client feedback',projectId:'p-klg',tag:'Client',priority:'Normal',due:'',waiting:true,done:false}
+ ],
+ events:[
+  {id:'e-1',title:'Yongda strategy review',date:addDays(4),time:'10:00',projectId:'p-yongda',notes:''},
+  {id:'e-2',title:'Salad Stories check-in',date:addDays(9),time:'14:30',projectId:'p-salad',notes:''}
+ ],
+ activity:[
+  {id:'a-1',text:'Discovery in progress',projectId:'p-klg',at:now-14*6e4},
+  {id:'a-2',text:'Strategy updated',projectId:'p-yongda',at:now-36e5},
+  {id:'a-3',text:'Feedback received',projectId:'p-broker',at:now-864e5}
+ ]};
+}
+function emptyDB(profile){return {v:1,profile:profile||{studio:'The Monogram Club',designer:''},lastBackup:null,clients:[],projects:[],tasks:[],events:[],activity:[]}}
+function validDB(d){return d&&typeof d==='object'&&['clients','projects','tasks','events','activity'].every(k=>Array.isArray(d[k]))&&d.profile&&typeof d.profile==='object'}
+let db,storageOK=true;
+function loadDB(){let d=null;try{d=JSON.parse(localStorage.getItem(DB_KEY)||'null')}catch(e){}db=validDB(d)?d:sampleDB();if(!d)persist()}
+function persist(){try{localStorage.setItem(DB_KEY,JSON.stringify(db));storageOK=true}catch(e){if(storageOK)toast('Could not save — browser storage is full or blocked');storageOK=false}}
+function commit(){persist();renderAll()}
+function logActivity(text,projectId){db.activity.unshift({id:uid('a'),text,projectId:projectId||null,at:Date.now()});db.activity=db.activity.slice(0,80);if(projectId){const c=client(proj(projectId)?.clientId);if(c)c.updated=Date.now()}}
+const proj=id=>db.projects.find(p=>p.id===id);
+const client=id=>db.clients.find(c=>c.id===id);
+const isActive=p=>p.health!=='Complete';
+const openTasks=()=>db.tasks.filter(t=>!t.done);
+const projTasks=id=>db.tasks.filter(t=>t.projectId===id);
+const clientProjects=id=>db.projects.filter(p=>p.clientId===id);
+const coverOf=p=>COVERS[p.cover%COVERS.length]||COVERS[0];
+const firstName=()=>(db.profile.designer||'').trim().split(/\s+/)[0];
+
+/* ---------- Navigation ---------- */
+const labels={dashboard:'Overview',projects:'Projects',project:'Project',clients:'Clients',tasks:'Tasks',calendar:'Calendar',discovery:'Discovery',brandlab:'Brand Lab',brandhub:'Brand Hub',documents:'Documents',assets:'Assets',templates:'Templates',ai:'Monogram AI',generations:'Generations',settings:'Settings'};
+const views=[...document.querySelectorAll('.view')],nav=[...document.querySelectorAll('.nav button')];
+let curView='dashboard',curProject=null;
+function go(id){
+ if(id==='project'&&!proj(curProject)){id='projects'}
+ curView=id;
+ views.forEach(v=>v.classList.toggle('active',v.id===id));
+ nav.forEach(n=>n.classList.toggle('active',n.dataset.view===id||(id==='project'&&n.dataset.view==='projects')));
+ $('crumb').textContent=id==='project'?proj(curProject).name:(labels[id]||id);
+ if(id==='project')renderProject();
+ if(id==='discovery')renderDiscoveryView();
+ try{history.replaceState(null,'','#'+id+(id==='project'?'/'+curProject:''))}catch(e){}
+ window.scrollTo({top:0,behavior:'instant'});document.querySelector('.sidebar').classList.remove('open');
+}
+function openProject(id){if(!proj(id))return;curProject=id;go('project')}
 nav.forEach(n=>n.onclick=()=>go(n.dataset.view));
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';clearTimeout(window.__t);window.__t=setTimeout(()=>t.style.display='none',2200)}
 function openSearch(){openModal('search')}
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openSearch()}if(e.key==='Escape')closeModal()});
-function toggleTask(el){const c=el.querySelector('.check');if(el.dataset.done){delete el.dataset.done;c.textContent='';c.style.background=''}else{el.dataset.done='1';c.textContent='✓';c.style.background='#111';c.style.color='#fff'}syncTasks();toast(el.dataset.done?'Task completed':'Task reopened')}
-function projectPanel(type,btn){document.querySelectorAll('.project-tabs .soft-tab').forEach(x=>x.classList.remove('active'));btn.classList.add('active');const m={brief:['Project brief','Modernise the investor portal experience with clearer hierarchy, calmer visual language and stronger property-level actions.'],strategy:['Approved strategy','The platform should feel established, clear and calm, reducing friction for investors while remaining contemporary.'],direction:['Creative direction','A restrained digital language: precise typography, generous spacing, subtle geometry and controlled colour.'],files:['Project files','Brief.pdf · Strategy.pdf · Dashboard-v3.fig · Presentation-v2.pdf']};document.getElementById('projectPanel').innerHTML='<b>'+m[type][0]+'</b><p>'+m[type][1]+'</p>'}
-document.querySelectorAll('#projectStages button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#projectStages button').forEach(x=>x.classList.remove('active'));b.classList.add('active');const s=b.dataset.stage;const copy={Overview:['Design','Refining the investor dashboard before presentation.','78%'],Discovery:['Discovery','Capturing business, audience, positioning and visual context.','25%'],Strategy:['Strategy','Turning discovery into positioning, promise and strategic direction.','42%'],'Creative Direction':['Creative Direction','Building distinct visual routes from the approved strategy.','58%'],Design:['Design','Refining the investor dashboard before presentation.','78%'],Presentation:['Presentation','Preparing the work and rationale for client review.','88%'],Delivery:['Delivery','Packaging final files and handover resources.','96%']}[s];document.getElementById('stageTitle').textContent=copy[0];document.getElementById('stageDesc').textContent=copy[1];document.getElementById('stageProgress').textContent=copy[2];toast(s+' stage selected')});
 
-/* Discovery */
+/* ---------- Shared rows ---------- */
+function taskRow(t){
+ const p=proj(t.projectId),meta=[p&&p.name,t.tag].filter(Boolean).join(' · '),overdue=!t.done&&t.due&&t.due<todayISO();
+ const chip=t.waiting?'<span class="chip info">Waiting</span>':`<span class="chip ${PRIORITY[t.priority]||'info'}">${esc(t.priority)}</span>`;
+ return `<div class="task"${t.done?' data-done="1"':''}><button class="check" aria-pressed="${t.done}" aria-label="Mark ${esc(t.title)} ${t.done?'not done':'done'}" onclick="toggleTaskDone('${t.id}')">✓</button><button class="task-body" onclick="editTask('${t.id}')"><b>${esc(t.title)}</b><small>${esc(meta)||'No project'}</small></button>${chip}<time class="${overdue?'overdue':''}">${t.due?(overdue?'Overdue · ':'')+fmtDue(t.due):''}</time></div>`;
+}
+const sortTasks=a=>a.sort((x,y)=>(x.done-y.done)||((x.due||'9999')<(y.due||'9999')?-1:(x.due||'9999')>(y.due||'9999')?1:0)||(['High','Medium','Normal'].indexOf(x.priority)-['High','Medium','Normal'].indexOf(y.priority)));
+const visibleDone=t=>!t.done||(t.doneAt&&iso(new Date(t.doneAt))===todayISO());
+function emptyCard(title,text,btn){return `<div class="empty-card"><b>${title}</b>${text}${btn||''}</div>`}
+
+/* ---------- Overview ---------- */
+function renderDashboard(){
+ const d=new Date(),h=d.getHours(),n=firstName();
+ $('dashHello').textContent=(h<12?'Good morning':h<18?'Good afternoon':'Good evening')+(n?', '+n:'')+'.';
+ $('dashDate').textContent=d.toLocaleDateString('en-GB',{weekday:'long'})+' · '+d.toLocaleDateString('en-GB',{day:'2-digit',month:'long',year:'numeric'});
+ const act=db.projects.filter(isActive).sort((a,b)=>(a.due||'9999')<(b.due||'9999')?-1:1);
+ const awaitingP=act.filter(p=>p.health==='With client'),awaitingC=db.clients.filter(c=>c.status==='Awaiting'||c.status==='Feedback');
+ const awaitNames=[...new Set([...awaitingP.map(p=>client(p.clientId)?.name||p.name),...awaitingC.map(c=>c.name)])];
+ const ot=openTasks(),today=ot.filter(t=>!t.waiting&&t.due&&t.due<=todayISO()),overdue=ot.filter(t=>t.due&&t.due<todayISO());
+ $('dashSummary').textContent=act.length?`${act.length===1?'One project is':act.length+' projects are'} moving. ${awaitNames.length?plural(awaitNames.length,'client')+' need'+(awaitNames.length===1?'s':'')+' attention.':'Nothing is waiting on a client.'}`:'No active projects yet. Start one to get going.';
+ $('statProjects').textContent=pad2(act.length);
+ const month=db.projects.filter(p=>p.created&&new Date(p.created).getMonth()===d.getMonth()&&new Date(p.created).getFullYear()===d.getFullYear()).length;
+ $('statProjChip').textContent=month?'+'+month+' this month':'Steady';
+ $('statProjNote').textContent=[...new Set(act.map(p=>p.stage))].join(' · ')||'Nothing in motion';
+ $('statOpen').textContent=pad2(ot.length);$('statToday').textContent=pad2(today.length)+' today';
+ $('statTaskNote').textContent=overdue.length?plural(overdue.length,'task')+' overdue':'Nothing overdue';
+ $('statAwait').textContent=pad2(awaitNames.length);
+ const ac=$('statAwaitChip');ac.className='chip '+(awaitNames.length?'warn':'good');ac.textContent=awaitNames.length?'Needs reply':'All clear';
+ $('statAwaitNote').textContent=awaitNames.join(' · ')||'No one waiting';
+ const f=act[0];
+ $('dashFeature').innerHTML=f?`<div class="art"></div><div><div class="eyebrow">${f.due&&dayDiff(f.due)<=7?'Due next':'Featured project'}</div><h2>${esc(f.name)}</h2><p>${esc(f.notes?.brief||STAGE_DESC[f.stage])}</p></div><div class="feature-bottom"><div class="feature-progress"><div class="eyebrow" style="margin-bottom:6px">Project progress</div><div class="track"><i style="width:${f.progress}%"></i></div><div class="small">${f.progress}% complete · ${esc(f.stage)}${f.due?' · due '+dueWord(f.due):''}</div></div><button class="btn" onclick="openProject('${f.id}')">Open project</button></div>`
+  :`<div class="art"></div><div><div class="eyebrow">Get started</div><h2>Your studio, in one place.</h2><p>Add a client, start a project and the overview fills itself in.</p></div><div class="feature-bottom"><span></span><button class="btn" onclick="editProject()">＋ New project</button></div>`;
+ const td=sortTasks(db.tasks.filter(t=>visibleDone(t)&&!t.waiting&&t.due&&t.due<=todayISO()));
+ $('dashTodayCnt').textContent=today.length;
+ $('dashToday').innerHTML=td.map(taskRow).join('')||`<div class="empty-line">Nothing due today.</div><button class="add-row" onclick="editTask(null,{due:todayISO()})">+ Add task</button>`;
+ $('dashProjCnt').textContent=act.length;
+ $('dashProjects').innerHTML=act.slice(0,6).map(p=>`<div class="project-row clickable" onclick="openProject('${p.id}')"><div class="thumb" style="background:${coverOf(p)[0]}"></div><div><b>${esc(p.name)}</b><small>${esc([p.type,p.stage].filter(Boolean).join(' · '))}</small><div class="pbar"><i style="width:${p.progress}%"></i></div></div><div class="pct">${p.progress}%</div></div>`).join('')||'<div class="empty-line">No active projects.</div>';
+ $('dashActivity').innerHTML=db.activity.slice(0,5).map((a,i)=>{const p=proj(a.projectId);return `<div class="activity clickable${i===0&&Date.now()-a.at<36e5?' is-new':''}" onclick="${p?`openProject('${p.id}')`:`go('dashboard')`}"><div class="dot"></div><div><b>${p?esc(p.name)+' — ':''}${esc(a.text)}</b><p>${esc(firstName()||'Studio')} · ${relTime(a.at)}</p></div></div>`}).join('')||'<div class="empty-line">Activity will appear here as you work.</div>';
+}
+
+/* ---------- Projects ---------- */
+function projCard(p){
+ const c=client(p.clientId),cv=coverOf(p),open=projTasks(p.id).filter(t=>!t.done).length,late=p.due&&isActive(p)&&p.due<todayISO();
+ return `<article class="card proj clickable" onclick="openProject('${p.id}')"><div class="proj-cover" style="background:${cv[0]}"><span style="color:${cv[1]}">${esc(p.type||'Project')}</span><span class="chip" style="background:rgba(255,255,255,.88);box-shadow:none;color:#16181d">${esc(p.stage)}</span></div><div class="pad"><div class="proj-top"><div><b>${esc(p.name)}</b><small>${esc(c?c.name:(p.summary||'No client'))}</small></div><span class="chip ${HEALTH[p.health]||''}">${esc(p.health)}</span></div><div class="pbar" style="margin-top:14px"><i style="width:${p.progress}%"></i></div><div class="proj-meta"><span>${p.progress}% complete</span><span>${plural(open,'open task')}</span>${p.due?`<span${late?' style="color:var(--bad)"':''}>${late?'Overdue':'Due'} ${parseISO(p.due).toLocaleDateString('en-GB',{day:'2-digit',month:'short'})}</span>`:''}</div></div></article>`;
+}
+function renderProjects(){
+ const f=$('projFilter').value;
+ const list=db.projects.filter(p=>f==='all'||(f==='active'?isActive(p):!isActive(p))).sort((a,b)=>(a.due||'9999')<(b.due||'9999')?-1:1);
+ $('projGrid').innerHTML=list.map(projCard).join('')||emptyCard(f==='complete'?'No completed projects yet':'No projects here yet',f==='complete'?'Mark a project complete from its edit form.':'Create a project to start tracking stages, tasks and deadlines.',f==='complete'?'':'<br><button class="btn dark" onclick="editProject()">＋ New project</button>');
+}
+
+/* ---------- Project detail ---------- */
+let curPane='brief';
+function renderProject(){
+ const p=proj(curProject);if(!p)return;const c=client(p.clientId);
+ $('pjEyebrow').textContent='Project · '+(c?c.name:'No client');$('pjName').textContent=p.name;$('pjType').textContent=[p.type,p.summary].filter(Boolean).join(' · ')||'Project';
+ $('stageTitle').textContent=p.health==='Complete'?'Complete':p.stage;$('stageDesc').textContent=p.health==='Complete'?'This project has been delivered.':STAGE_DESC[p.stage];
+ const st=$('stageState');st.className='chip '+(HEALTH[p.health]||'');st.textContent=p.health;
+ $('stageProgress').textContent=p.progress+'%';
+ const tasks=projTasks(p.id),open=tasks.filter(t=>!t.done);
+ $('pjOpen').textContent=pad2(open.length);$('pjDue').textContent=p.due?fmtDate(p.due):'Not set';
+ $('projectStages').innerHTML=STAGES.map(s=>`<button class="${s===p.stage?'active':''}" aria-pressed="${s===p.stage}" onclick="setStage('${s}')">${s}</button>`).join('');
+ $('pjTaskCnt').textContent=open.length;
+ $('pjTasks').innerHTML=sortTasks(tasks.filter(visibleDone)).map(taskRow).join('')||'<div class="empty-line">No tasks yet. Add the next action for this project.</div>';
+ const acts=db.activity.filter(a=>a.projectId===p.id);
+ $('pjEventCnt').textContent=plural(acts.length,'event');
+ $('pjActivity').innerHTML=acts.slice(0,6).map(a=>`<div class="event"><div class="edot"></div><div><b>${esc(a.text)}</b><p>${esc(firstName()||'Studio')} · ${relTime(a.at)}</p></div></div>`).join('')||'<div class="empty-line">Nothing logged yet.</div>';
+ document.querySelectorAll('.project-tabs .soft-tab').forEach(b=>b.classList.toggle('active',b.dataset.pane===curPane));
+ const ta=$('projectPanel');if(document.activeElement!==ta){ta.value=(p.notes&&p.notes[curPane])||'';ta.placeholder={brief:'What is being built, for whom, and why it matters…',strategy:'Positioning, promise and the strategic idea…',direction:'The visual routes and the chosen direction…',files:'Links to Figma, Drive, PDFs and final files…'}[curPane]}
+ $('pjPalette').innerHTML=(p.palette||[]).map(h=>`<div class="swatch" style="background:${esc(h)}"><span>${esc(h.toUpperCase())}</span></div>`).join('')||'<div class="empty-line">No palette yet — add colours in Edit.</div>';
+ $('pjPersonality').textContent=p.personality||'—';
+ $('pjClient').innerHTML=c?`<a href="#" onclick="editClient('${c.id}');return false" style="color:inherit">${esc(c.name)}</a>`:'—';
+ const dc=discCount(p.id);$('pjDisc').textContent=p.approved?'Approved':dc+' of 5 sections';
+}
+function projectPanel(type,btn){curPane=type;const ta=$('projectPanel');ta.blur();renderProject();ta.focus()}
+let _wsT;function saveWorkspace(v){const p=proj(curProject);if(!p)return;p.notes=p.notes||{};p.notes[curPane]=v;$('pjSaved').textContent='Saving…';clearTimeout(_wsT);_wsT=setTimeout(()=>{persist();$('pjSaved').textContent='Saved'},400)}
+function setStage(s){const p=proj(curProject);if(!p||p.stage===s)return;const back=STAGES.indexOf(s)<STAGES.indexOf(p.stage);p.stage=s;p.progress=back?STAGE_PCT[s]:Math.max(p.progress,STAGE_PCT[s]);logActivity('Moved to '+s,p.id);commit();toast(p.name+' moved to '+s)}
+
+/* ---------- Clients ---------- */
+function renderClients(){
+ const q=($('clientSearch').value||'').toLowerCase();
+ const list=db.clients.filter(c=>!q||[c.name,c.contact,c.email].join(' ').toLowerCase().includes(q)).sort((a,b)=>b.updated-a.updated);
+ $('clientRows').innerHTML=list.map(c=>{const ps=clientProjects(c.id);return `<tr class="clickable" tabindex="0" onclick="editClient('${c.id}')" onkeydown="if(event.key==='Enter')editClient('${c.id}')"><td><div class="cell-id"><span class="mono-av" style="background:${esc(c.color)}">${esc(initials(c.name))}</span><div><b>${esc(c.name)}</b>${c.contact||c.email?`<small>${esc(c.contact||c.email)}</small>`:''}</div></div></td><td>${ps.length?esc(ps.map(p=>p.name).join(', ')):'<span style="color:var(--soft)">None yet</span>'}</td><td><span class="chip ${CLIENT_STATUS[c.status]||''}">${esc(c.status)}</span></td><td>${relTime(c.updated)}</td></tr>`}).join('')
+  ||`<tr><td colspan="4" class="empty-line" style="text-align:center;padding:28px">${q?'No clients match “'+esc(q)+'”.':'No clients yet. Add your first client to attach projects to them.'}</td></tr>`;
+}
+
+/* ---------- Tasks ---------- */
+function renderTasks(){
+ const sel=$('taskFilter'),cur=sel.value||'all';
+ sel.innerHTML='<option value="all">All projects</option>'+db.projects.filter(isActive).map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')+'<option value="none">No project</option>';
+ sel.value=[...sel.options].some(o=>o.value===cur)?cur:'all';
+ const f=sel.value,t0=todayISO();
+ const ts=db.tasks.filter(t=>visibleDone(t)&&(f==='all'||(f==='none'?!proj(t.projectId):t.projectId===f)));
+ const cols=[
+  ['Today','bad',ts.filter(t=>!t.waiting&&t.due&&t.due<=t0),{due:t0},'Due today or overdue.'],
+  ['Coming up','warn',ts.filter(t=>!t.waiting&&(!t.due||t.due>t0)),{},'Nothing scheduled.'],
+  ['Waiting','info',ts.filter(t=>t.waiting),{waiting:true},'Nothing blocked on others.']
+ ];
+ const pre=f!=='all'&&f!=='none'?{projectId:f}:{};
+ $('taskBoard').innerHTML=cols.map(([name,tone,list,preset,empty])=>{const ps=JSON.stringify({...preset,...pre}).replace(/"/g,'&quot;');return `<div class="card pad"><div class="col-head"><h3><i class="tone ${tone}"></i>${name}<span class="cnt">${list.filter(t=>!t.done).length}</span></h3><button class="icon-btn sm" aria-label="Add task to ${name}" onclick="editTask(null,${ps})">+</button></div>${sortTasks(list).map(taskRow).join('')||`<div class="empty-line">${empty}</div>`}<button class="add-row" onclick="editTask(null,${ps})">+ Add task</button></div>`}).join('');
+}
+function toggleTaskDone(id){const t=db.tasks.find(x=>x.id===id);if(!t)return;t.done=!t.done;t.doneAt=t.done?Date.now():null;if(t.done)logActivity('Completed “'+t.title+'”',t.projectId);commit();toast(t.done?'Task completed':'Task reopened')}
+/* Visual-only checklist used inside the Brand Hub review section */
+function toggleCheck(el){const c=el.querySelector('.check');if(el.dataset.done){delete el.dataset.done;c.textContent='';c.style.background=''}else{el.dataset.done='1';c.textContent='✓';c.style.background='#111';c.style.color='#fff'}}
+
+/* ---------- Calendar ---------- */
+let calCursor=(()=>{const d=new Date();return new Date(d.getFullYear(),d.getMonth(),1)})();
+function calMove(n){if(n===0){const d=new Date();calCursor=new Date(d.getFullYear(),d.getMonth(),1)}else calCursor=new Date(calCursor.getFullYear(),calCursor.getMonth()+n,1);renderCalendar()}
+function calItems(){
+ const out=[];
+ db.events.forEach(e=>out.push({date:e.date,label:(e.time?e.time+' ':'')+e.title,kind:'event',sort:e.time||'00:00',act:`editEvent('${e.id}')`,sub:proj(e.projectId)?.name||'Event'}));
+ db.projects.filter(p=>p.due&&isActive(p)).forEach(p=>out.push({date:p.due,label:p.name+' due',kind:'due',sort:'',act:`openProject('${p.id}')`,sub:'Project deadline'}));
+ db.tasks.filter(t=>t.due&&!t.done).forEach(t=>out.push({date:t.due,label:t.title,kind:'task',sort:'99',act:`editTask('${t.id}')`,sub:proj(t.projectId)?.name||'Task'}));
+ return out.sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:a.sort<b.sort?-1:1);
+}
+function renderCalendar(){
+ const y=calCursor.getFullYear(),m=calCursor.getMonth(),days=new Date(y,m+1,0).getDate(),lead=(new Date(y,m,1).getDay()+6)%7,t0=todayISO();
+ const prefix=y+'-'+pad2(m+1)+'-',items=calItems().filter(i=>i.date.startsWith(prefix));
+ $('calTitle').textContent=calCursor.toLocaleDateString('en-GB',{month:'long',year:'numeric'});
+ const up=items.filter(i=>i.date>=t0).length;$('calCount').textContent=up+' upcoming';
+ let h=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(n=>`<div class="cal-h">${n}</div>`).join('')+'<div class="cal-day blank" aria-hidden="true"></div>'.repeat(lead);
+ for(let i=1;i<=days;i++){const ds=prefix+pad2(i),its=items.filter(x=>x.date===ds);
+  h+=`<div class="cal-day${ds===t0?' today':''}${ds<t0?' past':''}" role="button" tabindex="0" aria-label="${i} ${esc($('calTitle').textContent)}${its.length?', '+plural(its.length,'item'):''}" onclick="editEvent(null,{date:'${ds}'})" onkeydown="if(event.key==='Enter'&&event.target===this)this.click()"><div class="cal-n">${i}</div><div class="evs">${its.slice(0,3).map(x=>`<button class="cal-ev ${x.kind}" title="${esc(x.label)}" onclick="event.stopPropagation();${x.act}">${esc(x.label)}</button>`).join('')}${its.length>3?`<span class="cal-more">+${its.length-3} more</span>`:''}</div></div>`}
+ $('calendarGrid').innerHTML=h;
+ $('calAgenda').innerHTML=items.map(x=>`<button class="agenda-row" onclick="${x.act}"><time>${parseISO(x.date).toLocaleDateString('en-GB',{weekday:'short',day:'2-digit'})}</time><b>${esc(x.label)}</b><span class="chip ${x.kind==='due'?'bad':x.kind==='task'?'warn':'info'}">${x.kind==='due'?'Deadline':x.kind==='task'?'Task':'Event'}</span></button>`).join('')||'<div class="empty-line">Nothing scheduled this month. Click a day to add an event.</div>';
+}
+
+/* ---------- Settings & data ---------- */
+function renderSettings(){
+ if(document.activeElement!==$('setStudio'))$('setStudio').value=db.profile.studio||'';
+ if(document.activeElement!==$('setDesigner'))$('setDesigner').value=db.profile.designer||'';
+ $('setBackup').textContent=db.lastBackup?'Backed up '+relTime(db.lastBackup).toLowerCase():'Not backed up';
+ $('setCounts').textContent=`${plural(db.clients.length,'client')} · ${plural(db.projects.length,'project')} · ${plural(db.tasks.length,'task')} · ${plural(db.events.length,'event')}`;
+}
+function saveProfile(){db.profile.studio=$('setStudio').value.trim()||'The Monogram Club';db.profile.designer=$('setDesigner').value.trim();commit();toast('Studio profile saved')}
+function exportData(){
+ const data={app:'monogram-os',version:1,exportedAt:new Date().toISOString(),db:{...db,lastBackup:Date.now()},discovery:discStore};
+ const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
+ const a=document.createElement('a');a.href=url;a.download='monogram-os-backup-'+todayISO()+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ db.lastBackup=Date.now();commit();toast('Backup downloaded');
+}
+function importData(input){
+ const file=input.files&&input.files[0];input.value='';if(!file)return;
+ const r=new FileReader();
+ r.onload=()=>{let data;try{data=JSON.parse(r.result)}catch(e){toast('That file is not a Monogram OS backup');return}
+  const next=data&&data.db;if(!validDB(next)){toast('That file is not a Monogram OS backup');return}
+  showModal({eyebrow:'Settings',title:'Restore this backup?',text:`This replaces everything in this browser with the backup from ${data.exportedAt?new Date(data.exportedAt).toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'short'}):'an unknown date'}: ${plural(next.clients.length,'client')}, ${plural(next.projects.length,'project')}, ${plural(next.tasks.length,'task')}.`,body:'',primary:'Restore backup',
+   onSubmit:()=>{db=next;discStore=data.discovery&&typeof data.discovery==='object'?data.discovery:{};saveDisc();curProject=null;commit();go('dashboard');toast('Backup restored')}})};
+ r.readAsText(file);
+}
+function resetData(kind){
+ showModal({eyebrow:'Settings',title:kind==='sample'?'Load the sample studio?':'Erase all data?',text:kind==='sample'?'This replaces your clients, projects, tasks, events and discovery answers with the sample studio. Download a backup first if you want to keep your work.':'This permanently clears every client, project, task, event and discovery answer in this browser. Download a backup first if you might need it.',body:'',primary:kind==='sample'?'Load sample data':'Erase everything',danger:kind!=='sample',
+  onSubmit:()=>{const prof=db.profile;db=kind==='sample'?sampleDB():emptyDB(prof);discStore={};saveDisc();curProject=null;commit();go(kind==='sample'?'dashboard':'settings');toast(kind==='sample'?'Sample studio loaded':'All data erased')}});
+}
+
+/* ---------- Sidebar ---------- */
+function renderChrome(){
+ const ap=db.projects.filter(isActive).length,ot=openTasks().length;
+ $('navProjects').textContent=ap;$('navProjects').hidden=!ap;$('navTasks').textContent=ot;$('navTasks').hidden=!ot;
+ $('profName').textContent=db.profile.designer||'Your name';$('profStudio').textContent=db.profile.studio||'';$('profAv').textContent=initials(db.profile.designer||db.profile.studio);
+ $('backupNote').textContent=db.lastBackup?'Last backup '+relTime(db.lastBackup).toLowerCase()+'.':'No backup downloaded yet.';
+ if(curView==='project'&&proj(curProject))$('crumb').textContent=proj(curProject).name;
+}
+function renderAll(){
+ if(curView==='project'&&!proj(curProject))go('projects');
+ renderChrome();renderDashboard();renderProjects();renderClients();renderTasks();renderCalendar();renderSettings();
+ if(curView==='project')renderProject();
+ if(curView==='discovery')renderDiscoveryView();
+}
+
+/* ---------- Modal ---------- */
+let _lf=null,_modal=null;
+function showModal(o){
+ _modal=o;if(!$('modalBg').classList.contains('show'))_lf=document.activeElement;
+ $('modalEyebrow').textContent=o.eyebrow||'Monogram OS';$('modalTitle').textContent=o.title;$('modalText').textContent=o.text||'';$('modalBody').innerHTML=o.body||'';
+ const p=$('modalPrimary');p.textContent=o.primary||'Save';p.hidden=o.primary===null;p.className='btn '+(o.danger?'danger':'dark');if(o.danger)p.style.cssText='background:var(--bad);border-color:var(--bad);color:#fff';else p.style.cssText='';
+ p.onclick=()=>{if(o.onSubmit&&o.onSubmit()===false)return;closeModal()};
+ const del=$('modalDelete');delete del.dataset.armed;
+ if(o.onDelete){del.hidden=false;del.textContent=o.deleteLabel||'Delete';del.onclick=()=>{if(!del.dataset.armed){del.dataset.armed='1';del.textContent='Click again to delete';return}closeModal();o.onDelete()}}else del.hidden=true;
+ $('modalBg').classList.add('show');
+ setTimeout(()=>($('modalBody').querySelector('input:not([type=hidden]):not([type=checkbox]),textarea,select')||p).focus(),40);
+}
+function closeModal(e){if(e&&e.target!==$('modalBg'))return;const bg=$('modalBg');if(!bg.classList.contains('show'))return;bg.classList.remove('show');_modal=null;if(_lf&&_lf.focus&&document.contains(_lf))_lf.focus();_lf=null}
+$('modalBody').addEventListener('input',e=>e.target.closest&&e.target.closest('.field')?.classList.remove('invalid'));
+$('modalBody').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName==='INPUT'&&e.target.type!=='checkbox'&&_modal&&_modal.primary!==null){e.preventDefault();$('modalPrimary').click()}});
+const val=id=>{const el=$(id);return el?(el.type==='checkbox'?el.checked:el.value.trim()):''};
+function need(id,msg){const el=$(id);if(el.value.trim())return true;el.closest('.field').classList.add('invalid');el.focus();toast(msg);return false}
+const fld=(label,inner,cls='')=>`<div class="field ${cls}"><label>${label}</label>${inner}</div>`;
+const opts=(arr,cur)=>arr.map(([v,l])=>`<option value="${esc(v)}"${v===cur?' selected':''}>${esc(l)}</option>`).join('');
+const projOpts=cur=>opts([['','No project'],...db.projects.filter(p=>isActive(p)||p.id===cur).map(p=>[p.id,p.name])],cur||'');
+
+/* Project form */
+function editProject(id,preset={}){
+ const p=id?proj(id):null,v=p||{name:'',clientId:preset.clientId||'',type:'Brand identity',summary:'',stage:'Discovery',health:'On track',progress:'',due:'',cover:db.projects.length%COVERS.length,palette:[],personality:''};
+ const body=`<div class="field-grid">
+  ${fld('Project name','<input id="fName" value="'+esc(v.name)+'" placeholder="e.g. Kingslane rebrand">','full')}
+  ${fld('Client','<select id="fClient">'+opts([['','No client'],...db.clients.map(c=>[c.id,c.name]),['__new','＋ New client…']],v.clientId)+'</select><input id="fNewClient" placeholder="New client name" style="margin-top:6px" hidden>')}
+  ${fld('Type','<input id="fType" value="'+esc(v.type)+'" placeholder="Brand identity" list="typeList"><datalist id="typeList"><option>Brand identity</option><option>Corporate brand</option><option>Digital product</option><option>Brand refresh</option><option>Campaign</option></datalist>')}
+  ${fld('Stage','<select id="fStage">'+opts(STAGES.map(s=>[s,s]),v.stage)+'</select>')}
+  ${fld('Health','<select id="fHealth">'+opts(Object.keys(HEALTH).map(s=>[s,s]),v.health)+'</select>')}
+  ${fld('Due date','<input id="fDue" type="date" value="'+esc(v.due)+'">')}
+  ${fld('Progress %','<input id="fProgress" type="number" min="0" max="100" inputmode="numeric" value="'+esc(v.progress)+'" placeholder="Set by stage">')}
+  ${fld('One-line description','<input id="fSummary" value="'+esc(v.summary)+'" placeholder="e.g. Investor experience">','full')}
+  ${fld('Brand palette','<input id="fPalette" value="'+esc((v.palette||[]).join(', '))+'" placeholder="#111111, #E8A0CC, #B9E36A">','full')}
+  ${fld('Personality','<input id="fPersonality" value="'+esc(v.personality)+'" placeholder="Premium · Precise · Modern">','full')}
+  ${fld('Cover','<div class="covers" id="fCover" data-v="'+v.cover+'">'+COVERS.map((c,i)=>`<button type="button" aria-label="Cover ${i+1}" aria-pressed="${i===v.cover}" style="background:${c[0]}" onclick="pickCover(${i})"></button>`).join('')+'</div>','full')}
+ </div>`;
+ showModal({eyebrow:'Studio',title:p?'Edit project':'New project',text:p?'':'Start a new client engagement.',body,primary:p?'Save changes':'Create project',
+  deleteLabel:'Delete project',onDelete:p?()=>{const n=projTasks(p.id).length;db.tasks=db.tasks.filter(t=>t.projectId!==p.id);db.events.forEach(e=>{if(e.projectId===p.id)e.projectId=null});db.activity=db.activity.filter(a=>a.projectId!==p.id);db.projects=db.projects.filter(x=>x.id!==p.id);Object.keys(discStore).forEach(k=>{if(k.startsWith(p.id+':'))delete discStore[k]});saveDisc();if(curProject===p.id)curProject=null;commit();if(curView==='project')go('projects');toast('Project deleted'+(n?' with '+plural(n,'task'):''))}:null,
+  onSubmit:()=>{
+   if(!need('fName','Give the project a name'))return false;
+   let cid=val('fClient');
+   if(cid==='__new'){if(!need('fNewClient','Name the new client'))return false;const nc={id:uid('c'),name:val('fNewClient'),contact:'',email:'',phone:'',status:'Active',color:AV_COLORS[db.clients.length%AV_COLORS.length],notes:'',created:Date.now(),updated:Date.now()};db.clients.push(nc);cid=nc.id}
+   const stage=val('fStage'),pr=val('fProgress'),pal=val('fPalette').split(/[\s,]+/).filter(x=>/^#?[0-9a-f]{3}([0-9a-f]{3})?$/i.test(x)).map(x=>x[0]==='#'?x:'#'+x);
+   const health=val('fHealth');
+   const data={name:val('fName'),clientId:cid,type:val('fType'),summary:val('fSummary'),stage,health,due:val('fDue'),palette:pal,personality:val('fPersonality'),cover:+$('fCover').dataset.v,
+    progress:health==='Complete'?100:pr===''?STAGE_PCT[stage]:Math.max(0,Math.min(100,Math.round(+pr)||0))};
+   if(p){const was=p.stage,wasH=p.health;Object.assign(p,data);logActivity(wasH!=='Complete'&&health==='Complete'?'Marked complete':was!==stage?'Moved to '+stage:'Project details updated',p.id);toast('Project saved')}
+   else{const np={id:uid('p'),...data,approved:false,created:Date.now(),notes:{brief:'',strategy:'',direction:'',files:''}};db.projects.push(np);logActivity('Project created',np.id);curProject=np.id;toast('Project created')}
+   commit();if(!p)openProject(curProject);
+  }});
+ $('fClient').onchange=e=>{$('fNewClient').hidden=e.target.value!=='__new';if(!$('fNewClient').hidden)$('fNewClient').focus()};
+ $('fStage').onchange=()=>{if(!p)$('fProgress').placeholder=STAGE_PCT[$('fStage').value]+'% (set by stage)'};
+ if(preset.clientId==='__new')$('fNewClient').hidden=false;
+}
+function pickCover(i){const c=$('fCover');c.dataset.v=i;[...c.children].forEach((b,j)=>b.setAttribute('aria-pressed',j===i))}
+
+/* Client form */
+function editClient(id){
+ const c=id?client(id):null,v=c||{name:'',contact:'',email:'',phone:'',status:'Active',notes:''},ps=c?clientProjects(c.id):[];
+ const body=`<div class="field-grid">
+  ${fld('Client name','<input id="fName" value="'+esc(v.name)+'" placeholder="Company or person">','full')}
+  ${fld('Contact person','<input id="fContact" value="'+esc(v.contact)+'">')}
+  ${fld('Status','<select id="fStatus">'+opts(Object.keys(CLIENT_STATUS).map(s=>[s,s]),v.status)+'</select>')}
+  ${fld('Email','<input id="fEmail" type="email" value="'+esc(v.email)+'" autocomplete="off">')}
+  ${fld('Phone','<input id="fPhone" type="tel" value="'+esc(v.phone)+'" autocomplete="off">')}
+  ${fld('Notes','<textarea id="fNotes">'+esc(v.notes)+'</textarea>','full')}
+  ${c?fld('Projects','<div class="client-projects">'+ps.map(p=>`<button type="button" onclick="closeModal();openProject('${p.id}')"><span>${esc(p.name)}</span><span class="chip ${HEALTH[p.health]||''}">${esc(p.health==='Complete'?'Complete':p.stage)}</span></button>`).join('')+`<button type="button" onclick="editProject(null,{clientId:'${c.id}'})"><span>＋ New project for ${esc(c.name)}</span></button></div>`,'full'):''}
+ </div>`;
+ showModal({eyebrow:'Studio',title:c?c.name:'New client',text:c?'':'Create the relationship first, then attach projects.',body,primary:c?'Save changes':'Create client',
+  deleteLabel:'Delete client',onDelete:c&&!ps.length?()=>{db.clients=db.clients.filter(x=>x.id!==c.id);commit();toast('Client deleted')}:null,
+  onSubmit:()=>{
+   if(!need('fName','Give the client a name'))return false;
+   const data={name:val('fName'),contact:val('fContact'),status:val('fStatus'),email:val('fEmail'),phone:val('fPhone'),notes:val('fNotes'),updated:Date.now()};
+   if(c){Object.assign(c,data);toast('Client saved')}else{db.clients.push({id:uid('c'),...data,color:AV_COLORS[db.clients.length%AV_COLORS.length],created:Date.now()});toast('Client created')}
+   commit();
+  }});
+ if(c&&ps.length)$('modalText').textContent='To delete this client, delete or reassign its projects first.';
+}
+
+/* Task form */
+function editTask(id,preset={}){
+ const t=id?db.tasks.find(x=>x.id===id):null,v=t||{title:'',projectId:preset.projectId||(curView==='project'?curProject:''),tag:'',priority:'Normal',due:preset.due||'',waiting:!!preset.waiting};
+ const body=`<div class="field-grid">
+  ${fld('Task','<input id="fName" value="'+esc(v.title)+'" placeholder="What needs to happen?">','full')}
+  ${fld('Project','<select id="fProject">'+projOpts(v.projectId)+'</select>')}
+  ${fld('Type','<input id="fTag" value="'+esc(v.tag)+'" placeholder="Design, Strategy, Client…">')}
+  ${fld('Priority','<select id="fPriority">'+opts(Object.keys(PRIORITY).map(s=>[s,s]),v.priority)+'</select>')}
+  ${fld('Due date','<input id="fDue" type="date" value="'+esc(v.due)+'">')}
+  <label class="check-field full" style="padding-top:0"><input type="checkbox" id="fWaiting"${v.waiting?' checked':''}> Waiting on someone else</label>
+ </div>`;
+ showModal({eyebrow:'Tasks',title:t?'Edit task':'New task',text:'',body,primary:t?'Save changes':'Add task',
+  deleteLabel:'Delete task',onDelete:t?()=>{db.tasks=db.tasks.filter(x=>x.id!==t.id);commit();toast('Task deleted')}:null,
+  onSubmit:()=>{
+   if(!need('fName','Describe the task'))return false;
+   const data={title:val('fName'),projectId:val('fProject')||null,tag:val('fTag'),priority:val('fPriority'),due:val('fDue'),waiting:val('fWaiting')};
+   if(t){Object.assign(t,data);toast('Task saved')}else{db.tasks.push({id:uid('t'),...data,done:false});logActivity('Task added: “'+data.title+'”',data.projectId);toast('Task added')}
+   commit();
+  }});
+}
+
+/* Event form */
+function editEvent(id,preset={}){
+ const e=id?db.events.find(x=>x.id===id):null,v=e||{title:'',date:preset.date||todayISO(),time:'',projectId:'',notes:''};
+ const body=`<div class="field-grid">
+  ${fld('Event','<input id="fName" value="'+esc(v.title)+'" placeholder="Meeting, review, milestone…">','full')}
+  ${fld('Date','<input id="fDate" type="date" value="'+esc(v.date)+'">')}
+  ${fld('Time','<input id="fTime" type="time" value="'+esc(v.time)+'">')}
+  ${fld('Project','<select id="fProject">'+projOpts(v.projectId)+'</select>','full')}
+  ${fld('Notes','<textarea id="fNotes">'+esc(v.notes)+'</textarea>','full')}
+ </div>`;
+ showModal({eyebrow:'Calendar',title:e?'Edit event':'New event',text:'',body,primary:e?'Save changes':'Add event',
+  deleteLabel:'Delete event',onDelete:e?()=>{db.events=db.events.filter(x=>x.id!==e.id);commit();toast('Event deleted')}:null,
+  onSubmit:()=>{
+   if(!need('fName','Name the event'))return false;if(!need('fDate','Pick a date'))return false;
+   const data={title:val('fName'),date:val('fDate'),time:val('fTime'),projectId:val('fProject')||null,notes:val('fNotes')};
+   if(e){Object.assign(e,data);toast('Event saved')}else{db.events.push({id:uid('e'),...data});toast('Event added')}
+   const d=parseISO(data.date);calCursor=new Date(d.getFullYear(),d.getMonth(),1);commit();
+  }});
+}
+
+/* Search */
+function searchIndex(){
+ return [
+  ...db.projects.map(p=>({label:p.name,kind:'Project',hay:[p.name,p.type,p.summary,client(p.clientId)?.name].join(' '),act:()=>openProject(p.id)})),
+  ...db.clients.map(c=>({label:c.name,kind:'Client',hay:[c.name,c.contact,c.email].join(' '),act:()=>editClient(c.id)})),
+  ...db.tasks.filter(t=>!t.done).map(t=>({label:t.title,kind:'Task',hay:[t.title,t.tag,proj(t.projectId)?.name].join(' '),act:()=>editTask(t.id)})),
+  ...db.events.map(e=>({label:e.title,kind:'Event · '+fmtDue(e.date),hay:e.title,act:()=>editEvent(e.id)})),
+  ...Object.entries(labels).filter(([k])=>k!=='project').map(([k,l])=>({label:l,kind:'Page',hay:l,act:()=>go(k)}))
+ ];
+}
+let _results=[];
+function runSearch(q){
+ q=q.trim().toLowerCase();const idx=searchIndex();
+ _results=(q?idx.filter(r=>r.hay.toLowerCase().includes(q)):idx.filter(r=>r.kind==='Project'||r.kind==='Page').slice(0,8)).slice(0,12);
+ $('searchResults').innerHTML=_results.map((r,i)=>`<button class="result${i===0?' on':''}" onclick="pickResult(${i})"><span>${esc(r.label)}</span><small>${esc(r.kind)}</small></button>`).join('')||'<div class="empty-line">No matches.</div>';
+}
+function pickResult(i){const r=_results[i];if(!r)return;closeModal();setTimeout(r.act,0)}
+
+/* Legacy modal types still used by the prototype views */
+const modalData={
+ newDocument:['Creative','New document','Create a document from a studio template.','<div class="field"><label>Document</label><select><option>Creative Brief</option><option>Brand Strategy</option><option>Proposal</option><option>Scope of Work</option><option>Presentation</option><option>Brand Guidelines</option></select></div>'],
+ newTemplate:['Creative','New template','Create a reusable studio template.','<div class="field-grid"><div class="field"><label>Name</label><input></div><div class="field"><label>Category</label><select><option>Branding</option><option>Client</option><option>Studio</option></select></div></div>'],
+ clientPreview:['Brand Hub','Client preview','This is the client-facing side of the published hub.','<div class="panel-copy"><b>KLG / BRAND</b><p>Built for clarity. Strategy, logo, colour, typography and approved resources.</p></div>'],
+ hubSection:['Brand Hub','Section editor','This section will become a full editor in the production build.','<div class="panel-copy"><b>Client-facing section</b><p>Content, files, guidance and downloads will live here.</p></div>'],
+ assetDetail:['Creative','Asset detail','Saved asset metadata and actions.','<div class="field-grid"><div class="field"><label>Project</label><input value="KLG Investor Portal" disabled></div><div class="field"><label>Status</label><input value="Approved draft" disabled></div></div>'],
+ docDetail:['Documents','Document workspace','Open or edit this studio document.','<div class="panel-copy"><b>Version 03</b><p>Editing, versioning and PDF export plug into this document record in the production build.</p></div>'],
+ templateDetail:['Templates','Template','Use this reusable studio system.','<div class="panel-copy"><b>Reusable template</b><p>Duplicate this into a project to start working from the Monogram Club framework.</p></div>']
+};
+function openModal(type){
+ if(type==='search'){showModal({eyebrow:'Search',title:'Command center',text:'Find projects, clients, tasks, events and pages.',body:'<div class="field"><label for="searchInput">Search</label><input id="searchInput" placeholder="Try a project, client or task…" autocomplete="off"></div><div class="results" id="searchResults"></div>',primary:'Open',onSubmit:()=>{if(_results[0]){setTimeout(_results[0].act,0);return}return false}});const i=$('searchInput');i.oninput=()=>runSearch(i.value);runSearch('');return}
+ if(type==='newProject')return editProject();if(type==='newClient')return editClient();if(type==='newTask')return editTask();if(type==='calendarEvent')return editEvent();
+ if(type==='approveDiscovery'){const p=proj(discPid);showModal({eyebrow:'Discovery',title:'Approve discovery',text:'Approval marks these answers as the source for strategy on '+(p?p.name:'this project')+'.',body:'',primary:'Approve',onSubmit:()=>{if(p){p.approved=true;if(STAGES.indexOf(p.stage)<1){p.stage='Strategy';p.progress=Math.max(p.progress,STAGE_PCT.Strategy)}logActivity('Discovery approved',p.id);commit()}toast('Discovery approved — strategy can now begin')}});return}
+ const d=modalData[type]||modalData.assetDetail;
+ showModal({eyebrow:d[0],title:d[1],text:d[2],body:d[3],primary:type==='clientPreview'?'Open preview':/^new/.test(type)?'Create':'Done',onSubmit:()=>{if(/^new/.test(type))toast(d[1].replace('New ','')+' created (prototype — not saved)')}});
+}
+
+/* ---------- Discovery (per project) ---------- */
 const discData={
  Brief:['01 / Brief','Project brief','Capture what is being built, why it matters and what success needs to look like.',[
   ['Project objective','Give investors a clearer way to understand, compare and access their investments.'],
@@ -681,25 +1150,41 @@ const discData={
   ['Anything we should avoid?','']
  ]]
 };
-const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-let discStore={};try{discStore=JSON.parse(localStorage.getItem('monogram-disc')||'{}')}catch(e){}
-function discGet(n,i,seed){const k=n+'.'+i;return k in discStore?discStore[k]:seed}
-function discSet(n,i,v){discStore[n+'.'+i]=v;try{localStorage.setItem('monogram-disc',JSON.stringify(discStore))}catch(e){}syncDisc()}
 const DISC_ORDER=['Brief','Business','Audience','Positioning','Visual'];
-function discDone(n){return discData[n][3].every((q,i)=>discGet(n,i,q[1]).trim())}
-function syncDisc(){let c=0;DISC_ORDER.forEach(n=>{const ok=discDone(n);if(ok)c++;const m=document.querySelector('.process-step[data-disc="'+n+'"] .checkmark');if(m)m.textContent=ok?'✓':''});document.getElementById('discCount').textContent=c+' of 5 completed';document.getElementById('discProgress').style.width=(c*20)+'%'}
-function tryApprove(){const left=DISC_ORDER.filter(n=>!discDone(n));if(left.length)toast('Still to complete: '+left.join(', '));else openModal('approveDiscovery')}
-function renderDiscovery(name,btn){
- document.querySelectorAll('.process-step').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');
- const d=discData[name];document.getElementById('discEyebrow').textContent=d[0];document.getElementById('discTitle').textContent=d[1];document.getElementById('discDesc').textContent=d[2];
- syncDisc();
- document.getElementById('discContent').innerHTML=`<div class="question-list">${d[3].map((q,i)=>`<div class="question ${i===3?'full':''}"><label>${q[0]}</label><textarea oninput="discSet('${name}',${i},this.value)">${esc(discGet(name,i,q[1]))}</textarea></div>`).join('')}</div><div class="discovery-actions"><span class="save-state">Your answers are stored with this project.</span><div style="display:flex;gap:7px"><button class="btn" onclick="toast('Section saved')">Save section</button><button class="btn dark" onclick="nextDiscovery('${name}')">Continue</button></div></div>`;
+let discStore={};try{discStore=JSON.parse(localStorage.getItem(DISC_KEY)||'{}')||{}}catch(e){}
+/* Answers saved before V1.0 were not namespaced; they belong to the KLG sample project */
+Object.keys(discStore).forEach(k=>{if(!k.includes(':')){if(!(('p-klg:'+k) in discStore))discStore['p-klg:'+k]=discStore[k];delete discStore[k]}});
+function saveDisc(){try{localStorage.setItem(DISC_KEY,JSON.stringify(discStore))}catch(e){}}
+saveDisc();
+let discPid=null,discSection='Brief';
+const discSeed=(pid,n,i)=>pid==='p-klg'?discData[n][3][i][1]:'';
+function discGet(pid,n,i){const k=pid+':'+n+'.'+i;return k in discStore?discStore[k]:discSeed(pid,n,i)}
+function discSet(n,i,v){if(!discPid)return;discStore[discPid+':'+n+'.'+i]=v;saveDisc();syncDisc()}
+function discDone(pid,n){return discData[n][3].every((q,i)=>String(discGet(pid,n,i)).trim())}
+function discCount(pid){return DISC_ORDER.filter(n=>discDone(pid,n)).length}
+function syncDisc(){if(!discPid)return;let c=0;DISC_ORDER.forEach(n=>{const ok=discDone(discPid,n);if(ok)c++;const m=document.querySelector('.process-step[data-disc="'+n+'"] .checkmark');if(m)m.textContent=ok?'✓':''});$('discCount').textContent=c+' of 5 completed';$('discProgress').style.width=(c*20)+'%'}
+function tryApprove(){if(!discPid)return toast('Create a project first');const left=DISC_ORDER.filter(n=>!discDone(discPid,n));if(left.length)toast('Still to complete: '+left.join(', '));else openModal('approveDiscovery')}
+function setDiscProject(id){discPid=id;if(proj(id))curProject=id;discSection='Brief';renderDiscoveryView()}
+function renderDiscoveryView(){
+ const list=db.projects.filter(p=>isActive(p)||p.id===discPid);
+ if(!proj(discPid))discPid=proj(curProject)?curProject:(list[0]&&list[0].id)||null;
+ const sel=$('discProject');sel.innerHTML=list.length?list.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join(''):'<option>No projects</option>';sel.value=discPid||'';sel.disabled=!list.length;
+ const p=proj(discPid);$('discEyebrowProj').textContent=p?'Project · '+p.name:'No project yet';
+ $('discApprove').textContent=p&&p.approved?'Approved':'Approve discovery';$('discApprove').disabled=!!(p&&p.approved);
+ const ae=document.activeElement;if(ae&&ae.closest&&ae.closest('#discContent'))return syncDisc();
+ renderDiscovery(discSection,document.querySelector('.process-step[data-disc="'+discSection+'"]'));
 }
-function nextDiscovery(name){const order=['Brief','Business','Audience','Positioning','Visual'];const n=order[order.indexOf(name)+1];if(n){const b=document.querySelector('.process-step[data-disc="'+n+'"]');renderDiscovery(n,b)}else{toast('Discovery complete — ready for approval')}}
+function renderDiscovery(name,btn){
+ discSection=name;
+ document.querySelectorAll('.process-step').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');
+ const d=discData[name];$('discEyebrow').textContent=d[0];$('discTitle').textContent=d[1];$('discDesc').textContent=d[2];
+ if(!discPid){$('discContent').innerHTML=emptyCard('No project yet','Discovery belongs to a project. Create one to start capturing answers.','<br><button class="btn dark" onclick="editProject()">＋ New project</button>');$('discCount').textContent='';$('discProgress').style.width='0';return}
+ syncDisc();
+ $('discContent').innerHTML=`<div class="question-list">${d[3].map((q,i)=>`<div class="question ${i===3?'full':''}"><label for="dq${i}">${q[0]}</label><textarea id="dq${i}" oninput="discSet('${name}',${i},this.value)">${esc(discGet(discPid,name,i))}</textarea></div>`).join('')}</div><div class="discovery-actions"><span class="save-state">Answers save as you type.</span><div style="display:flex;gap:7px"><button class="btn dark" onclick="nextDiscovery('${name}')">${name==='Visual'?'Finish':'Next section'}</button></div></div>`;
+}
+function nextDiscovery(name){const n=DISC_ORDER[DISC_ORDER.indexOf(name)+1];if(n){renderDiscovery(n,document.querySelector('.process-step[data-disc="'+n+'"]'));window.scrollTo(0,0)}else tryApprove()}
 document.querySelectorAll('.process-step').forEach(b=>b.addEventListener('click',()=>renderDiscovery(b.dataset.disc,b)));
-function saveDiscovery(){toast('Discovery draft saved')}
-function synthesize(){toast('Discovery synthesis generated in prototype')}
-renderDiscovery('Brief',document.querySelector('.process-step.active'));
+function synthesize(){toast('Synthesis needs Monogram AI, which is not connected yet')}
 
 /* Brand Hub */
 const hubData={
@@ -732,7 +1217,7 @@ function hubContent(name){
  if(name==='Iconography') return `<div class="icons">${iconlySet.map(([name,label])=>`<div class="icon-tile clickable" onclick="openModal('assetDetail')"><svg class="ic" style="width:42px;height:42px" viewBox="0 0 24 24" role="img" aria-label="${label}"><use href="#i-${name}-light"/></svg></div>`).join('')}</div>`;
  if(name==='Layout') return `<div class="card pad"><div class="eyebrow">Grid / spacing</div><div style="height:210px;margin-top:10px;border:1px solid var(--line);border-radius:12px;background:repeating-linear-gradient(90deg,#f7f7f4 0,#f7f7f4 47px,#e7e6e2 48px)"></div></div>`;
  if(name==='Tools') return `<div class="grid" style="grid-template-columns:1fr 1fr"><div class="card pad clickable" onclick="toast('Figma resource opened')"><b style="font-size:12px">Figma library</b><p style="font-size:11px;color:#999">Open shared design source.</p></div><div class="card pad clickable" onclick="toast('Template resource opened')"><b style="font-size:12px">Social templates</b><p style="font-size:11px;color:#999">Download approved resources.</p></div></div>`;
- if(name==='Review') return `<div class="card pad"><div class="eyebrow">Pre-publish checklist</div>${['Strategy approved','Logo system complete','Colours documented','Typography documented','Downloads organised','Client preview checked'].map(x=>`<div class="task clickable" onclick="toggleTask(this)"><div class="check"></div><div><b>${x}</b><small>Review item</small></div></div>`).join('')}<button class="btn dark" style="margin-top:12px" onclick="publishHub()">Publish hub</button></div>`;
+ if(name==='Review') return `<div class="card pad"><div class="eyebrow">Pre-publish checklist</div>${['Strategy approved','Logo system complete','Colours documented','Typography documented','Downloads organised','Client preview checked'].map(x=>`<div class="task clickable" onclick="toggleCheck(this)"><div class="check"></div><div><b>${x}</b><small>Review item</small></div></div>`).join('')}<button class="btn dark" style="margin-top:12px" onclick="publishHub()">Publish hub</button></div>`;
  return hubIdentity();
 }
 function hubIdentity(){return `<div class="eyebrow">Hub identity</div><div class="field-grid" style="margin-top:11px"><div class="field"><label>Hub title</label><input value="KLG Investor Portal — Brand Guidelines"></div><div class="field"><label>Introduction</label><textarea>Everything you need to use the KLG identity consistently — from strategy and logo to colour, type and assets.</textarea></div></div><div class="rule"></div><div class="eyebrow">Published pages</div>${['Brand Overview','Strategy','Logo System','Colours','Typography','Downloads'].map((x,i)=>`<div class="hub-page"><span class="drag">⋮⋮</span><span class="page-icon">${String(i+1).padStart(2,'0')}</span><div><b>${x}</b><small>Client-facing section</small></div><div class="toggle"></div></div>`).join('')}`}
@@ -755,50 +1240,25 @@ document.getElementById('iconsGrid').innerHTML=iconlySet.map(([name,label])=>
    </div>`
 ).join('');
 
-/* Calendar */
-const cal=document.getElementById('calendarGrid');
-['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].forEach(n=>{const h=document.createElement('div');h.className='cal-h';h.textContent=n;cal.appendChild(h)});
-for(let i=0;i<3;i++)cal.appendChild(document.createElement('div'));
-const _n=new Date(),TODAY=(_n.getFullYear()===2026&&_n.getMonth()===9)?_n.getDate():-1;
-for(let i=1;i<=31;i++){const d=document.createElement('div');d.className='card clickable'+(i===TODAY?' cal-today':'');d.style.cssText='padding:9px;min-height:76px;background:'+(i===18?'#16181d;color:#fff':'#fafafa');d.innerHTML='<div class="cal-n">'+i+'</div>'+(i===18?'<div class="cal-ev on">KLG deadline</div>':i===9?'<div class="cal-ev">Yongda review</div>':'');d.onclick=()=>openModal('calendarEvent');cal.appendChild(d)}
+
 
 /* AI */
-function fillAI(t){document.getElementById('aiInput').value=t;document.getElementById('aiInput').focus()}function askAI(){toast('AI request queued in prototype')}
+function fillAI(t){$('aiInput').value=t;$('aiInput').focus()}function askAI(){toast('Monogram AI is not connected yet — see Settings')}
 
-/* Clients */
-function filterClients(q){q=q.toLowerCase();document.querySelectorAll('#clientRows tr').forEach(r=>r.style.display=r.dataset.name.toLowerCase().includes(q)?'':'none')}
-
-/* Modals */
-const modalData={
- newProject:['Studio','New project','Start a new client engagement.','<div class="field-grid"><div class="field"><label>Project name</label><input id="modalProjectName"></div><div class="field"><label>Client</label><select><option>Select client…</option><option>Kingslane Group</option><option>Yongda Investments</option><option>Salad Stories</option></select></div></div>'],
- newClient:['Studio','New client','Create the relationship first, then attach projects.','<div class="field-grid"><div class="field"><label>Client name</label><input></div><div class="field"><label>Contact email</label><input></div></div>'],
- newTask:['Tasks','New task','Add a task to the current project.','<div class="field-grid"><div class="field"><label>Task</label><input></div><div class="field"><label>Due</label><input type="date"></div></div>'],
- newDocument:['Creative','New document','Create a document from a studio template.','<div class="field"><label>Document</label><select><option>Creative Brief</option><option>Brand Strategy</option><option>Proposal</option><option>Scope of Work</option><option>Presentation</option><option>Brand Guidelines</option></select></div>'],
- newTemplate:['Creative','New template','Create a reusable studio template.','<div class="field-grid"><div class="field"><label>Name</label><input></div><div class="field"><label>Category</label><select><option>Branding</option><option>Client</option><option>Studio</option></select></div></div>'],
- calendarEvent:['Calendar','Calendar event','Create a meeting or milestone.','<div class="field-grid"><div class="field"><label>Event</label><input></div><div class="field"><label>Date</label><input type="date"></div></div>'],
- clientPortal:['Client portal','KLG client portal','Preview the client-facing side of the project.','<div class="panel-copy"><b>Awaiting client</b><p>The client currently has one pending review item and access to the published Brand Hub.</p></div>'],
- clientPreview:['Brand Hub','Client preview','This is the client-facing side of the published hub.','<div class="panel-copy"><b>KLG / BRAND</b><p>Built for clarity. Strategy, logo, colour, typography and approved resources.</p></div>'],
- hubSection:['Brand Hub','Section editor','This section will become a full editor in the production build.','<div class="panel-copy"><b>Client-facing section</b><p>Content, files, guidance and downloads will live here.</p></div>'],
- assetDetail:['Creative','Asset detail','Saved asset metadata and actions.','<div class="field-grid"><div class="field"><label>Project</label><input value="KLG Investor Portal" disabled></div><div class="field"><label>Status</label><input value="Approved draft" disabled></div></div>'],
- docDetail:['Documents','Document workspace','Open or edit this studio document.','<div class="panel-copy"><b>Version 03</b><p>Editing, versioning and PDF export plug into this document record in the production build.</p></div>'],
- templateDetail:['Templates','Template','Use this reusable studio system.','<div class="panel-copy"><b>Reusable template</b><p>Duplicate this into a project to start working from the Monogram Club framework.</p></div>'],
- approveDiscovery:['Discovery','Approve discovery','Approval locks the current discovery answers as the source for strategy.','<div class="panel-copy"><b>Ready for approval</b><p>Once approved, Monogram AI can use the discovery as the strategic source context.</p></div>'],
- search:['Search','Command center','Find anything across the studio.','<div class="field"><label>Search</label><input autofocus placeholder="Try KLG, strategy, Brand Hub…"></div>']
-};
-function openModal(type){const d=modalData[type]||modalData.assetDetail;document.getElementById('modalEyebrow').textContent=d[0];document.getElementById('modalTitle').textContent=d[1];document.getElementById('modalText').textContent=d[2];document.getElementById('modalBody').innerHTML=d[3];const p=document.getElementById('modalPrimary');p.textContent=type==='clientPreview'?'Open preview':type==='approveDiscovery'?'Approve':type==='search'?'Search':type==='newProject'||type==='newClient'||type==='newTask'||type==='newDocument'||type==='newTemplate'||type==='calendarEvent'?'Create':'Continue';p.onclick=()=>{closeModal();const msgs={newProject:'Project created in prototype',newClient:'Client created in prototype',newTask:'Task created in prototype',newDocument:'Document created in prototype',newTemplate:'Template created in prototype',calendarEvent:'Calendar event created',approveDiscovery:'Discovery approved — strategy can now begin',search:'Search complete',clientPreview:'Client preview opened'};toast(msgs[type]||'Action completed')};document.getElementById('modalBg').classList.add('show');setTimeout(()=>document.querySelector('#modalBody input')?.focus(),40)}
-function closeModal(e){if(e&&e.target!==document.getElementById('modalBg'))return;document.getElementById('modalBg').classList.remove('show')}
-
-/* v0.7 additions */
-function syncTasks(){const all=[...document.querySelectorAll('#tasks .task')],open=all.filter(t=>!t.dataset.done).length,td=[...document.querySelectorAll('#tasks .card:first-child .task')].filter(t=>!t.dataset.done).length,p=n=>String(n).padStart(2,'0');document.getElementById('statOpen').textContent=p(open);document.getElementById('navTasks').textContent=open;document.getElementById('statToday').textContent=p(td)+' today'}
-(function(){const d=new Date(),h=d.getHours();document.getElementById('dashHello').textContent=(h<12?'Good morning':h<18?'Good afternoon':'Good evening')+', Shingi.';document.getElementById('dashDate').textContent=d.toLocaleDateString('en-GB',{weekday:'long'})+' · '+d.toLocaleDateString('en-GB',{day:'2-digit',month:'long',year:'numeric'})})();
-const _om=openModal,_cm=closeModal;let _lf=null;
-openModal=function(t){_lf=document.activeElement;_om(t)};
-closeModal=function(e){_cm(e);if(!document.getElementById('modalBg').classList.contains('show')&&_lf&&_lf.focus){_lf.focus();_lf=null}};
-document.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const bg=document.getElementById('modalBg');if(!bg.classList.contains('show'))return;const f=[...bg.querySelectorAll('button,input,select,textarea')].filter(x=>!x.disabled);if(!f.length)return;const a=document.activeElement;if(e.shiftKey&&a===f[0]){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&a===f[f.length-1]){e.preventDefault();f[0].focus()}});
+/* ---------- Accessibility ---------- */
+document.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const bg=$('modalBg');if(!bg.classList.contains('show'))return;const f=[...bg.querySelectorAll('button,input,select,textarea')].filter(x=>!x.disabled&&!x.hidden&&x.offsetParent!==null);if(!f.length)return;const a=document.activeElement;if(e.shiftKey&&a===f[0]){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&a===f[f.length-1]){e.preventDefault();f[0].focus()}});
 function a11y(){document.querySelectorAll('[onclick]:not(button):not(a):not(input):not(select):not(tr):not(.modal-bg):not([role])').forEach(el=>{el.setAttribute('role','button');el.tabIndex=0})}
-document.addEventListener('keydown',e=>{const t=e.target;if((e.key==='Enter'||e.key===' ')&&t.getAttribute&&t.getAttribute('role')==='button'){e.preventDefault();t.click()}});
+document.addEventListener('keydown',e=>{const t=e.target;if((e.key==='Enter'||e.key===' ')&&t.getAttribute&&t.getAttribute('role')==='button'&&!t.classList.contains('cal-day')){e.preventDefault();t.click()}});
 let _q=0;new MutationObserver(()=>{if(_q)return;_q=requestAnimationFrame(()=>{_q=0;a11y()})}).observe(document.body,{childList:true,subtree:true});
-a11y();applyTheme();syncTasks();
+
+/* ---------- Boot ---------- */
+try{history.scrollRestoration='manual'}catch(e){}
+loadDB();
+window.addEventListener('storage',e=>{if(e.key===DB_KEY){loadDB();renderAll()}if(e.key===DISC_KEY){try{discStore=JSON.parse(e.newValue||'{}')||{}}catch(_){}if(curView==='discovery')renderDiscoveryView()}});
+setInterval(()=>{if(!$('modalBg').classList.contains('show')&&!document.activeElement.matches('textarea,input'))renderAll()},6e4);
+renderAll();
+(function(){const [v,id]=(location.hash.slice(1)||'dashboard').split('/');if(v==='project'&&proj(id)){curProject=id;go('project')}else go(labels[v]&&v!=='project'?v:'dashboard')})();
+a11y();applyTheme();
 </script>
 </body>
 </html>
