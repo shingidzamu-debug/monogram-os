@@ -65,3 +65,48 @@ and the device doing real work in a Projects list.
   stripped that pattern out. Theirs are functional category markers with
   an icon rather than decorative eyebrows, so this may be fine — undecided.
 - Scope: marketing site, product UI, or both.
+
+---
+
+## Surface Studio — the pattern engine
+
+`surface-studio.html`. Calendly's Patternly makes Calendly patterns.
+Ours sits in Brand Lab, which already holds each client's approved
+palette, so it makes **that client's** patterns. Single-brand tool versus
+multi-brand tool. That difference is structural, not cosmetic, and it is
+what keeps this from reading as a copy.
+
+### Motifs come from a brand studio's own vocabulary
+
+No vertical bars — bars are theirs.
+
+| Motif | Root |
+|---|---|
+| Interlock | letterforms sharing a stroke, knitted into a lattice |
+| Counter | the bowl of a letterform |
+| Register | registration and trim marks |
+| Screen | halftone dot field |
+| Baseline | type rules at leading intervals |
+| Nest | concentric forms |
+
+### The pattern modulates the gradient, it does not sit on it
+
+Four blends, and presence defaults low so the result is a texture rather
+than wallpaper:
+
+- **Veil** — white, screen. Lifts the gradient where the motif falls.
+- **Etch** — brand dark, multiply. Technical, print-like.
+- **Emboss** — white, soft-light. The quietest; barely there.
+- **Mark** — brand accent, normal. The only bold register.
+
+Gradient moods (Drift, Bloom, Horizon, Veil) build from the palette with
+a deep anchor and a white highlight, which is what gives the real value
+range. Flat pastel is what makes a gradient look synthetic.
+
+Exports SVG, PNG at 2400px, and a CSS `background-image` string. Seeded,
+so a recipe is reproducible: brand, mood, motif, blend, seed.
+
+### Next
+
+Merge into Brand Lab as a third tab beside Gradients and Icons, reading
+the live project palette instead of the hardcoded `BRANDS` map.
