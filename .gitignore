@@ -1,3 +1,15 @@
 .DS_Store
 node_modules/
 shots/
+
+# Next.js
+.next/
+out/
+.vercel/
+next-env.d.ts
+*.tsbuildinfo
+
+# Generated from index.html by scripts/build-legacy.mjs
+app/legacy.generated.js
+public/legacy/
+.claude/launch.json

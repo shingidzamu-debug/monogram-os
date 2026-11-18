@@ -1,9 +1,10 @@
 # Monogram OS
 
 A working studio tool (grown from a clickable prototype) for The Monogram Club — a
-strategy-led brand identity studio. Single self-contained `index.html`:
-markup, styles and script in one file, no build step, no dependencies
-beyond the Inter webfont. Open it in a browser to run it.
+strategy-led brand identity studio. The app is a single self-contained
+`index.html` (markup, styles and script in one file) that still opens
+directly in a browser. A thin Next.js shell wraps it for deployment to
+Vercel — see "Next.js shell" below.
 
 Current version: **V1.0** (title tag carries the version — bump it with
 each meaningful pass).
@@ -17,6 +18,20 @@ idea in it — the permanent home for a finished identity, not another PDF.
 Views: Overview, Projects, Project detail, Clients, Tasks, Calendar,
 Discovery, Brand Lab, Brand Hub, Documents, Assets, Templates, Monogram AI,
 Generations, Settings.
+
+## Next.js shell
+
+`index.html` stays the source of truth. `scripts/build-legacy.mjs` (run by
+`predev`/`prebuild`) splits it into `app/legacy.generated.js` (title, head
+links, CSS, body markup) and `public/legacy/app.js` (the script). `app/layout.jsx`
+injects the CSS and links; `app/page.jsx` renders the markup and loads the
+script with `next/script`. Generated files are gitignored — never edit them.
+
+The script relies on globals and inline `onclick` handlers, so it must stay a
+classic script, not a module. When porting a view to React, move it out of
+`index.html` into a component rather than keeping two copies.
+
+Node is not on the system PATH on this Mac; it lives in `~/.local/node/bin`.
 
 ## Design system
 

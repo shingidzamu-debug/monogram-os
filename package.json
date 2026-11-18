@@ -1,0 +1,21 @@
+{
+  "name": "monogram-os",
+  "version": "1.1.0",
+  "private": true,
+  "scripts": {
+    "legacy": "node scripts/build-legacy.mjs",
+    "predev": "npm run legacy",
+    "dev": "next dev",
+    "prebuild": "npm run legacy",
+    "build": "next build",
+    "start": "next start"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "next": "^16.4.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  }
+}

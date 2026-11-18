@@ -1,5 +1,10 @@
 # Changelog
 
+## Next.js shell
+- Added a Next.js 16 project around the single-file app so it can deploy to
+  Vercel. `index.html` is split at build time by `scripts/build-legacy.mjs`;
+  the app runs unchanged.
+
 ## V1.0 — ready for daily use
 - Clients, projects, tasks and calendar events are real records saved in the
   browser (`monogram-db`), with create, edit and delete forms.
