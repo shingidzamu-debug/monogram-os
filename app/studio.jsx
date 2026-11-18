@@ -175,51 +175,103 @@ function Synced({ user, markup }) {
   );
 }
 
+// Errors come back from Supabase in the URL after a Google sign-in or an
+// expired email link. Read them once, then clean the address bar.
+function takeUrlError() {
+  const params = new URLSearchParams(location.hash.slice(1) || location.search.slice(1));
+  const code = params.get('error_code') || '';
+  const desc = params.get('error_description') || params.get('error') || '';
+  if (!code && !desc) return '';
+  history.replaceState(null, '', location.pathname);
+  return friendly(code + ' ' + desc);
+}
+
+function friendly(message) {
+  if (/sign ?ups? (are )?not allowed|signup_disabled|user not found|not allowed for otp/i.test(message))
+    return 'This account hasn’t been invited yet. Ask the studio owner to add your email.';
+  if (/expired|otp_expired|invalid/i.test(message))
+    return 'That sign-in link has expired or was already used. Request a new one below.';
+  if (/rate limit|only request this after/i.test(message))
+    return 'Too many sign-in emails in a short time. Wait a few minutes, then try again.';
+  if (/provider is not enabled|unsupported provider/i.test(message))
+    return 'Google sign-in isn’t switched on yet. Use your email for now.';
+  return message.trim();
+}
+
 function SignIn() {
   const [email, setEmail] = useState('');
   const [sent, setSent] = useState(false);
-  const [busy, setBusy] = useState(false);
+  const [busy, setBusy] = useState('');
   const [error, setError] = useState('');
 
-  const submit = async e => {
+  useEffect(() => { setError(takeUrlError()); }, []);
+
+  const withGoogle = async () => {
+    setBusy('google');
+    setError('');
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: location.origin, queryParams: { prompt: 'select_account' } },
+    });
+    if (error) { setBusy(''); setError(friendly(error.message)); }
+  };
+
+  const withEmail = async e => {
     e.preventDefault();
-    setBusy(true);
+    setBusy('email');
     setError('');
     const { error } = await supabase.auth.signInWithOtp({
       email: email.trim(),
       options: { shouldCreateUser: false, emailRedirectTo: location.origin },
     });
-    setBusy(false);
-    if (!error) return setSent(true);
-    setError(/sign ?ups? not allowed|not found|not allowed/i.test(error.message)
-      ? 'This email hasn’t been invited yet. Ask the studio owner to add you.'
-      : error.message);
+    setBusy('');
+    if (error) setError(friendly(error.message));
+    else setSent(true);
   };
 
   return (
-    <main className="auth-shell">
-      <div className="auth-card">
+    <main className="auth-split">
+      <section className="auth-panel">
         <Brand />
         {sent ? (
-          <>
+          <div className="auth-body">
             <h1>Check your email</h1>
-            <p className="auth-note">We sent a sign-in link to <b>{email}</b>. Open it on this device to get into the studio.</p>
-            <button className="btn" onClick={() => setSent(false)}>Use a different email</button>
-          </>
+            <p className="auth-note">
+              We sent a sign-in link to <b>{email}</b>. Open it in this browser to get into the
+              studio. Each link works once.
+            </p>
+            <button className="btn auth-wide" onClick={() => setSent(false)}>Use a different email</button>
+          </div>
         ) : (
-          <form onSubmit={submit}>
-            <h1>Sign in</h1>
-            <p className="auth-note">Enter your email and we’ll send you a link. No password needed.</p>
-            <div className="field">
-              <label htmlFor="authEmail">Email</label>
-              <input id="authEmail" type="email" autoComplete="email" required value={email}
-                onChange={e => setEmail(e.target.value)} placeholder="you@themonogram.club" />
-            </div>
+          <div className="auth-body">
+            <h1>Welcome back</h1>
+            <p className="auth-note">Sign in to the Monogram Club studio.</p>
             {error && <p className="auth-error" role="alert">{error}</p>}
-            <button className="btn dark auth-submit" disabled={busy}>{busy ? 'Sending…' : 'Email me a sign-in link'}</button>
-          </form>
+            <button className="btn auth-wide auth-google" onClick={withGoogle} disabled={!!busy}>
+              <GoogleMark />
+              {busy === 'google' ? 'Opening Google…' : 'Continue with Google'}
+            </button>
+            <div className="auth-or"><span>or use your email</span></div>
+            <form onSubmit={withEmail}>
+              <div className="field">
+                <label htmlFor="authEmail">Email</label>
+                <input id="authEmail" type="email" autoComplete="email" required value={email}
+                  onChange={e => setEmail(e.target.value)} placeholder="you@themonogram.club" />
+              </div>
+              <button className="btn dark auth-wide" disabled={!!busy}>
+                {busy === 'email' ? 'Sending…' : 'Email me a sign-in link'}
+              </button>
+            </form>
+          </div>
         )}
-      </div>
+        <p className="auth-foot">Access is by invitation. Ask the studio owner to add your email.</p>
+      </section>
+      <aside className="auth-art" aria-hidden="true">
+        <div className="auth-art-copy">
+          <span>Monogram OS</span>
+          <p>Discovery, strategy and the Brand Hub — the studio, in one place.</p>
+        </div>
+      </aside>
     </main>
   );
 }
@@ -230,5 +282,17 @@ function Brand() {
       <div className="brand-mark">M</div>
       <div className="brand-text">MONOGRAM <span>OS</span></div>
     </div>
+  );
+}
+
+// Google's standard "G" mark, as required next to "Continue with Google".
+function GoogleMark() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
+      <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+      <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+      <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+      <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+    </svg>
   );
 }
