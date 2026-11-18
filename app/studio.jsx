@@ -164,7 +164,13 @@ function Synced({ user, markup }) {
   return (
     <>
       <div style={{ display: 'contents' }} dangerouslySetInnerHTML={{ __html: markup }} />
-      <Script src="/legacy/app.js" strategy="afterInteractive" />
+      <Script
+        src="/legacy/app.js"
+        strategy="afterInteractive"
+        // First sign-in on an account with nothing saved yet: upload what
+        // this browser has (or the sample studio) straight away.
+        onLoad={() => { if (!window.__monogramSynced) window.dispatchEvent(new Event('monogram:saved')); }}
+      />
     </>
   );
 }
