@@ -920,7 +920,7 @@ h1,h2,h3,h4,h5,h6{font-family:var(--ui);letter-spacing:-.02em}
 <section id="generations" class="view"><div class="page-head"><div><div class="eyebrow">Intelligence</div><h1>Generations</h1><p>Creative outputs and AI history.</p></div><button class="btn dark" onclick="go('brandlab')">＋ New generation</button></div><div class="grid" style="grid-template-columns:repeat(3,1fr)"><div class="card clickable" onclick="openModal('assetDetail')" style="height:210px;background:var(--g3);padding:12px;display:flex;align-items:flex-end"><span class="pill">KLG · 2 hours ago</span></div><div class="card clickable" onclick="openModal('assetDetail')" style="height:210px;background:#fafaf8;display:grid;place-items:center;font-size:48px">◇</div><div class="card clickable" onclick="openModal('assetDetail')" style="height:210px;background:var(--g4);display:grid;place-items:center;font-size:11px;font-weight:700">ILLUSTRATION DIRECTION</div></div></section>
 
 <!-- SETTINGS -->
-<section id="settings" class="view"><div class="page-head"><div><div class="eyebrow">System</div><h1>Settings</h1><p>Studio profile, your data and system preferences.</p></div></div><div class="grid settings-grid"><div class="card pad"><div class="section-head"><h3>Studio profile</h3><button class="btn" onclick="saveProfile()">Save profile</button></div><div class="field"><label for="setStudio">Studio name</label><input id="setStudio"></div><div class="field" style="margin-top:10px"><label for="setDesigner">Your name</label><input id="setDesigner"></div></div><div class="card pad"><div class="section-head"><h3>Your data</h3><span class="pill" id="setBackup"></span></div><p class="set-note">Everything is saved in this browser on this device. Download a backup regularly, and use it to move your studio to another browser or machine.</p><div class="set-actions"><button class="btn dark" onclick="exportData()">Download backup</button><button class="btn" onclick="document.getElementById('importFile').click()">Restore from backup</button><input type="file" id="importFile" accept="application/json,.json" hidden onchange="importData(this)"></div><div class="rule"></div><p class="set-note">Start over with the sample studio, or clear everything and begin with your own work.</p><div class="set-actions"><button class="btn" onclick="resetData('sample')">Load sample data</button><button class="btn danger" onclick="resetData('empty')">Erase all data</button></div><p class="set-note" id="setCounts"></p></div><div class="card pad"><div class="section-head"><h3>AI configuration</h3><span class="pill">Prototype</span></div><p class="set-note">Monogram AI, Brand Lab and the Brand Hub generator are not connected to a model yet. Their buttons show what will happen, but nothing is generated.</p><button class="btn dark" onclick="toast('AI settings opened')">Configure AI</button></div></div></section>
+<section id="settings" class="view"><div class="page-head"><div><div class="eyebrow">System</div><h1>Settings</h1><p>Studio profile, your data and system preferences.</p></div></div><div class="grid settings-grid"><div class="card pad"><div class="section-head"><h3>Studio profile</h3><button class="btn" onclick="saveProfile()">Save profile</button></div><div class="field"><label for="setStudio">Studio name</label><input id="setStudio"></div><div class="field" style="margin-top:10px"><label for="setDesigner">Your name</label><input id="setDesigner"></div></div><div class="card pad"><div class="section-head"><h3>Your data</h3><span class="pill" id="setBackup"></span></div><div id="setAccount" class="set-account" hidden><p class="set-note">Signed in as <b id="setAccountEmail"></b>. Your studio syncs to your account, so it is the same on every device you sign in on.</p><div class="set-actions"><button class="btn" onclick="monogramSignOut()">Sign out</button></div><div class="rule"></div></div><p class="set-note">Everything is saved in this browser on this device. Download a backup regularly, and use it to move your studio to another browser or machine.</p><div class="set-actions"><button class="btn dark" onclick="exportData()">Download backup</button><button class="btn" onclick="document.getElementById('importFile').click()">Restore from backup</button><input type="file" id="importFile" accept="application/json,.json" hidden onchange="importData(this)"></div><div class="rule"></div><p class="set-note">Start over with the sample studio, or clear everything and begin with your own work.</p><div class="set-actions"><button class="btn" onclick="resetData('sample')">Load sample data</button><button class="btn danger" onclick="resetData('empty')">Erase all data</button></div><p class="set-note" id="setCounts"></p></div><div class="card pad"><div class="section-head"><h3>AI configuration</h3><span class="pill">Prototype</span></div><p class="set-note">Monogram AI, Brand Lab and the Brand Hub generator are not connected to a model yet. Their buttons show what will happen, but nothing is generated.</p><button class="btn dark" onclick="toast('AI settings opened')">Configure AI</button></div></div></section>
 </div>
 </main>
 </div>
@@ -999,7 +999,7 @@ function emptyDB(profile){return {v:1,profile:profile||{studio:'The Monogram Clu
 function validDB(d){return d&&typeof d==='object'&&['clients','projects','tasks','events','activity'].every(k=>Array.isArray(d[k]))&&d.profile&&typeof d.profile==='object'}
 let db,storageOK=true;
 function loadDB(){let d=null;try{d=JSON.parse(localStorage.getItem(DB_KEY)||'null')}catch(e){}db=validDB(d)?d:sampleDB();if(!d)persist()}
-function persist(){try{localStorage.setItem(DB_KEY,JSON.stringify(db));storageOK=true}catch(e){if(storageOK)toast('Could not save — browser storage is full or blocked');storageOK=false}}
+function persist(){try{localStorage.setItem(DB_KEY,JSON.stringify(db));storageOK=true;window.dispatchEvent(new Event("monogram:saved"))}catch(e){if(storageOK)toast('Could not save — browser storage is full or blocked');storageOK=false}}
 function commit(){persist();renderAll()}
 function logActivity(text,projectId){db.activity.unshift({id:uid('a'),text,projectId:projectId||null,at:Date.now()});db.activity=db.activity.slice(0,80);if(projectId){const c=client(proj(projectId)?.clientId);if(c)c.updated=Date.now()}}
 const proj=id=>db.projects.find(p=>p.id===id);
@@ -1163,6 +1163,7 @@ function renderSettings(){
  if(document.activeElement!==$('setStudio'))$('setStudio').value=db.profile.studio||'';
  if(document.activeElement!==$('setDesigner'))$('setDesigner').value=db.profile.designer||'';
  $('setBackup').textContent=db.lastBackup?'Backed up '+relTime(db.lastBackup).toLowerCase():'Not backed up';
+ const acc=$('setAccount');acc.hidden=!window.monogramSignOut;if(window.monogramUser)$('setAccountEmail').textContent=window.monogramUser;
  $('setCounts').textContent=`${plural(db.clients.length,'client')} · ${plural(db.projects.length,'project')} · ${plural(db.tasks.length,'task')} · ${plural(db.events.length,'event')}`;
 }
 function saveProfile(){db.profile.studio=$('setStudio').value.trim()||'The Monogram Club';db.profile.designer=$('setDesigner').value.trim();commit();toast('Studio profile saved')}
@@ -1395,7 +1396,7 @@ const DISC_ORDER=['Brief','Business','Audience','Positioning','Visual'];
 let discStore={};try{discStore=JSON.parse(localStorage.getItem(DISC_KEY)||'{}')||{}}catch(e){}
 /* Answers saved before V1.0 were not namespaced; they belong to the KLG sample project */
 Object.keys(discStore).forEach(k=>{if(!k.includes(':')){if(!(('p-klg:'+k) in discStore))discStore['p-klg:'+k]=discStore[k];delete discStore[k]}});
-function saveDisc(){try{localStorage.setItem(DISC_KEY,JSON.stringify(discStore))}catch(e){}}
+function saveDisc(){try{localStorage.setItem(DISC_KEY,JSON.stringify(discStore));window.dispatchEvent(new Event("monogram:saved"))}catch(e){}}
 saveDisc();
 let discPid=null,discSection='Brief';
 const discSeed=(pid,n,i)=>pid==='p-klg'?discData[n][3][i][1]:'';
@@ -1493,6 +1494,8 @@ document.addEventListener('keydown',e=>{const t=e.target;if((e.key==='Enter'||e.
 let _q=0;new MutationObserver(()=>{if(_q)return;_q=requestAnimationFrame(()=>{_q=0;a11y()})}).observe(document.body,{childList:true,subtree:true});
 
 /* ---------- Boot ---------- */
+/* Used by the Next.js shell after it pulls newer data from the account */
+window.monogramReload=()=>{loadDB();try{discStore=JSON.parse(localStorage.getItem(DISC_KEY)||"{}")||{}}catch(e){}renderAll()};
 try{history.scrollRestoration='manual'}catch(e){}
 loadDB();
 window.addEventListener('storage',e=>{if(e.key===DB_KEY){loadDB();renderAll()}if(e.key===DISC_KEY){try{discStore=JSON.parse(e.newValue||'{}')||{}}catch(_){}if(curView==='discovery')renderDiscoveryView()}});

@@ -1,5 +1,10 @@
 # Changelog
 
+## Login and sync
+- Email magic-link sign-in with Supabase; invite-only.
+- Studio data and discovery answers sync to the signed-in account and
+  follow you across devices; Settings shows the account and a Sign out button.
+
 ## Phone layout fix
 - Overview, Project, Tasks and Monogram AI no longer scroll sideways on
   phones: two-column rows stack below 800px and grid items can shrink.

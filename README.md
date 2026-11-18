@@ -35,12 +35,16 @@ render those pieces. The generated files are not committed — edit
    repo and keep the detected **Next.js** settings.
 3. Click **Deploy**. Every push to `main` deploys again.
 
-## Your data
+## Signing in and your data
 
-Data is stored in the browser you use (localStorage), per web address. The
-local file, `localhost:3000` and your Vercel URL each have their own separate
-data. Use Settings → Download backup regularly, and Restore from backup to
-move your studio between them.
+The live site asks you to sign in with your email (a link, no password).
+Only invited people can sign in: add them in Supabase under Authentication →
+Users → Invite user. Once signed in, your studio is saved to your account and
+is the same on every device. The first time you sign in, anything already
+saved in that browser is uploaded.
+
+Opening `index.html` directly skips login and keeps data in that browser
+only. Settings → Download backup still works everywhere.
 
 See `CLAUDE.md` for the design system and working rules, and
 `docs/CHANGELOG.md` for version history.

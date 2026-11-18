@@ -31,6 +31,20 @@ The script relies on globals and inline `onclick` handlers, so it must stay a
 classic script, not a module. When porting a view to React, move it out of
 `index.html` into a component rather than keeping two copies.
 
+## Login and sync (Supabase)
+
+`app/studio.jsx` gates the app: signed out it shows an email magic-link
+sign-in (`shouldCreateUser:false`; public sign-ups are off in Supabase, so
+users must be invited from the Supabase dashboard). Signed in, it pulls the
+user's row from `public.studio_state` (db + discovery jsonb, RLS: own row
+only) into localStorage, then mounts the legacy app. The app fires
+`monogram:saved` from `persist()`/`saveDisc()`; the shell debounces and
+upserts. On tab focus it pulls newer remote data and calls
+`window.monogramReload()`. Settings shows the account and `monogramSignOut()`.
+The local `index.html` still runs without login, using localStorage only.
+
+Supabase project: `yytentaxigdswtsqlwtt` (publishable key in `app/supabase.js`).
+
 Node is not on the system PATH on this Mac; it lives in `~/.local/node/bin`.
 
 ## Design system
@@ -103,8 +117,10 @@ and actually look at the result rather than assuming.
 
 ## Known gaps
 
-- Data is per browser and per file location: moving `index.html` or switching
-  browsers starts empty until a backup is restored. No multi-user sync.
+- Each user has their own studio; there is no shared team studio yet.
+  Sync is last-write-wins per user, so editing on two devices at the same
+  moment can overwrite one side.
+- Opening `index.html` directly still works but is local-only.
 - Brand Hub, Brand Lab, Monogram AI, Generations, Documents, Assets and
   Templates are still prototype views tied to the KLG sample; their actions
   fire a toast and nothing is saved.
