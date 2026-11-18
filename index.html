@@ -209,6 +209,8 @@ body{background:var(--bg);color:var(--ink);font-size:14px;line-height:1.45}
  .stats{grid-template-columns:1fr 1fr;gap:12px}
  .stat{padding:15px}.stat-num{font-size:26px}
  .board,.grid[style*="repeat(3"],.grid[style*="repeat(2"]{grid-template-columns:1fr!important}
+ .lower,.grid[style*="1fr 1fr"]{grid-template-columns:minmax(0,1fr)!important}
+ .grid>*{min-width:0}
  .content{padding:18px 14px 44px}
 }
 .cal-n{font-size:12px;font-weight:550}

@@ -1,5 +1,9 @@
 # Changelog
 
+## Phone layout fix
+- Overview, Project, Tasks and Monogram AI no longer scroll sideways on
+  phones: two-column rows stack below 800px and grid items can shrink.
+
 ## Next.js shell
 - Added a Next.js 16 project around the single-file app so it can deploy to
   Vercel. `index.html` is split at build time by `scripts/build-legacy.mjs`;
